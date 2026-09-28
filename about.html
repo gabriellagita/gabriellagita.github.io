@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Gita Gabriella</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans', sans-serif; background: #F7F5F2; color: #1C1F21; line-height: 1.6; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- nav (matches index.html / archive.html) ---------- */
+  .top-nav { display: flex; align-items: center; justify-content: space-between; padding: 28px 40px; }
+  .top-nav .name-block .name { font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 16px; color: #1C1F21; }
+  .top-nav .name-block .role { font-size: 12px; color: #6C8893; margin-top: 2px; }
+  .top-nav .nav-links { display: flex; gap: 24px; font-size: 13px; color: #53768C; letter-spacing: 0.05em; text-transform: uppercase; }
+  .top-nav .nav-links a:hover { color: #30545C; }
+  .top-nav .nav-links a.active { color: #1C1F21; }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 40px; }
+  .wrap-wide { max-width: 1040px; margin: 0 auto; padding: 0 40px; }
+
+  /* ---------- 1. quiet introduction ---------- */
+  .intro { padding: 64px 0 96px; }
+  .intro h1 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    font-size: clamp(26px, 3.4vw, 36px);
+    line-height: 1.35;
+    color: #30545C;
+    max-width: 620px;
+  }
+  .intro p {
+    margin-top: 24px;
+    font-size: 16px;
+    color: #384042;
+    max-width: 560px;
+  }
+
+  /* ---------- 2. reference map ---------- */
+  .map-section { padding: 40px 0 100px; border-top: 1px solid #CED7E0; border-bottom: 1px solid #CED7E0; }
+  .map-intro { padding-top: 56px; padding-bottom: 8px; }
+  .map-intro p { font-size: 13px; color: #6C8893; letter-spacing: 0.02em; }
+
+  .map-canvas {
+    position: relative;
+    width: 100%;
+    padding-bottom: 62%;
+    margin-top: 48px;
+  }
+
+  .anchor {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: none;
+    border: none;
+    padding: 6px 10px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    font-size: clamp(17px, 2.6vw, 26px);
+    letter-spacing: 0.04em;
+    color: #1C1F21;
+    cursor: pointer;
+    transition: opacity 0.35s ease, color 0.35s ease;
+  }
+  .anchor:hover, .anchor:focus-visible { color: #30545C; }
+  .anchor-id { left: 14%; top: 82%; }
+  .anchor-be { left: 50%; top: 13%; }
+  .anchor-tw { left: 86%; top: 82%; }
+
+  .concept {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-size: clamp(11px, 1.5vw, 14px);
+    color: #53768C;
+    opacity: 0.72;
+    white-space: nowrap;
+    transition: opacity 0.35s ease, color 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+  }
+  .concept.shared {
+    font-weight: 600;
+    color: #30545C;
+    opacity: 0.85;
+  }
+  .concept.core {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    font-size: clamp(14px, 2vw, 18px);
+    color: #30545C;
+    opacity: 0.95;
+  }
+
+  /* resting state already legible: unrelated fields dim only once something is active */
+  .map-canvas[data-active] .anchor { opacity: 0.18; }
+  .map-canvas[data-active] .concept { opacity: 0.08; }
+  .map-canvas[data-active] .concept.shared { opacity: 0.14; }
+
+  .map-canvas[data-active="ID"] .anchor-id,
+  .map-canvas[data-active="BE"] .anchor-be,
+  .map-canvas[data-active="TW"] .anchor-tw { opacity: 1; }
+
+  .map-canvas[data-active="ID"] .concept[data-assoc~="ID"],
+  .map-canvas[data-active="BE"] .concept[data-assoc~="BE"],
+  .map-canvas[data-active="TW"] .concept[data-assoc~="TW"] {
+    opacity: 1;
+    color: #30545C;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+
+  .map-hint {
+    margin-top: 28px;
+    font-size: 12px;
+    color: #9B9388;
+    text-align: center;
+  }
+
+  /* ---------- soft cursor wisp, map section only ---------- */
+  .has-fine-cursor .map-section { cursor: none; }
+  .has-fine-cursor .map-section .anchor { cursor: none; }
+  .smoke-cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 0; height: 0;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .smoke-cursor.visible { opacity: 1; }
+  .wisp {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(11px);
+    transform: translate(-50%, -50%);
+    mix-blend-mode: multiply;
+  }
+  .wisp-1 {
+    width: 58px; height: 58px;
+    background: radial-gradient(circle, rgba(83,118,140,0.65) 0%, rgba(83,118,140,0) 70%);
+  }
+  .wisp-2 {
+    width: 110px; height: 110px;
+    background: radial-gradient(circle, rgba(129,174,185,0.45) 0%, rgba(129,174,185,0) 70%);
+  }
+
+  @media (max-width: 640px) {
+    .map-canvas { padding-bottom: 118%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .anchor, .concept { transition: none; }
+  }
+
+  /* ---------- 3. quiet intellectual payoff ---------- */
+  .payoff { padding: 112px 0 112px; text-align: center; }
+  .payoff h2 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    font-size: clamp(24px, 3.4vw, 34px);
+    line-height: 1.4;
+    color: #1C1F21;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .payoff p {
+    margin: 28px auto 0;
+    font-size: 15px;
+    color: #6C8893;
+    max-width: 480px;
+  }
+
+  /* ---------- 4. factual ending ---------- */
+  .facts { padding: 0 0 96px; }
+  .facts-inner {
+    border-top: 1px solid #CED7E0;
+    padding-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: space-between;
+  }
+  .facts-list { font-size: 14px; color: #1C1F21; }
+  .facts-list div { margin-bottom: 10px; color: #53768C; }
+  .facts-list div b { color: #1C1F21; font-weight: 500; }
+  .facts-links { font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .facts-links a { display: block; margin-bottom: 10px; color: #53768C; }
+  .facts-links a:hover { color: #30545C; }
+
+  .footer { background: #1C1F21; color: #9B9388; text-align: center; padding: 32px 24px; font-size: 13px; }
+</style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <div class="name-block">
+      <div class="name">Gita Gabriella</div>
+      <div class="role">Narrative &amp; strategy, across brands and policy</div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html#selected-work">Work</a>
+      <a href="archive.html">Archive</a>
+      <a href="about.html" class="active">About</a>
+    </div>
+  </div>
+
+  <!-- 1. quiet introduction -->
+  <div class="wrap">
+    <section class="intro">
+      <h1>My perspective sits between cultural proximity and analytical distance.</h1>
+      <p>Growing up Chinese-Indonesian, studying in Belgium and now basing myself in Taiwan have given me different reference points for examining how culture, institutions and narratives shape how people and organizations behave.</p>
+    </section>
+  </div>
+
+  <!-- 2. interactive reference map -->
+  <div class="wrap-wide">
+    <section class="map-section">
+      <div class="map-intro">
+        <p>Three places. The ideas between them overlap more than they separate.</p>
+      </div>
+
+      <div class="map-canvas" id="mapCanvas">
+        <button class="anchor anchor-id" data-anchor="ID">Indonesia</button>
+        <button class="anchor anchor-be" data-anchor="BE">Belgium</button>
+        <button class="anchor anchor-tw" data-anchor="TW">Taiwan</button>
+
+        <span class="concept core"          data-assoc="ID BE TW" style="left:50%; top:50%;">culture</span>
+
+        <span class="concept"               data-assoc="ID"       style="left:8%;  top:64%;">Chinese-Indonesian</span>
+        <span class="concept"               data-assoc="ID"       style="left:22%; top:91%;">minority adaptation</span>
+        <span class="concept"               data-assoc="ID"       style="left:6%;  top:88%;">healthcare operations</span>
+
+        <span class="concept shared"        data-assoc="ID BE"    style="left:29%; top:40%;">business</span>
+        <span class="concept shared"        data-assoc="ID TW"    style="left:55%; top:79%;">identity</span>
+        <span class="concept shared"        data-assoc="ID TW"    style="left:39%; top:68%;">formal / informal systems</span>
+
+        <span class="concept shared"        data-assoc="BE TW"    style="left:68%; top:32%;">institutions</span>
+        <span class="concept shared"        data-assoc="BE TW"    style="left:75%; top:46%;">comparison</span>
+
+        <span class="concept"               data-assoc="BE"       style="left:35%; top:20%;">innovation</span>
+        <span class="concept"               data-assoc="BE"       style="left:63%; top:20%;">entrepreneurship</span>
+
+        <span class="concept"               data-assoc="TW"       style="left:83%; top:61%;">language</span>
+        <span class="concept"               data-assoc="TW"       style="left:91%; top:70%;">migration</span>
+        <span class="concept"               data-assoc="TW"       style="left:89%; top:90%;">talent governance</span>
+        <span class="concept"               data-assoc="TW"       style="left:75%; top:89%;">place</span>
+      </div>
+
+      <p class="map-hint">Select a place to see what runs through it.</p>
+    </section>
+  </div>
+
+  <!-- 3. quiet intellectual payoff -->
+  <div class="wrap">
+    <section class="payoff">
+      <h2>Understanding a system on its own terms doesn't mean taking those terms for granted.</h2>
+      <p>[Placeholder] A short paragraph on holding a system's internal logic seriously while keeping enough distance to question its assumptions — and translate that logic across contexts.</p>
+    </section>
+  </div>
+
+  <!-- 4. factual ending -->
+  <div class="wrap">
+    <section class="facts">
+      <div class="facts-inner">
+        <div class="facts-list">
+          <div><b>MSc</b> Innovation &amp; Entrepreneurship Management — Belgium</div>
+          <div><b>BSc</b> International Business — Indonesia</div>
+          <div>Based in Taiwan</div>
+        </div>
+        <div class="facts-links">
+          <a href="mailto:gabriellagita.work@gmail.com">Email</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">CV</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="footer">&copy; 2026 Gita Gabriella</div>
+
+  <div class="smoke-cursor" id="smokeCursor">
+    <span class="wisp wisp-2"></span>
+    <span class="wisp wisp-1"></span>
+  </div>
+
+  <script>
+    (function(){
+      var canvas = document.getElementById('mapCanvas');
+      var anchors = canvas.querySelectorAll('.anchor');
+
+      function setActive(code){ canvas.setAttribute('data-active', code); }
+      function clearActive(){ canvas.removeAttribute('data-active'); }
+
+      anchors.forEach(function(a){
+        a.addEventListener('mouseenter', function(){ setActive(a.dataset.anchor); });
+        a.addEventListener('mouseleave', function(){ clearActive(); });
+        a.addEventListener('focus', function(){ setActive(a.dataset.anchor); });
+        a.addEventListener('blur', function(){ clearActive(); });
+        a.addEventListener('click', function(e){
+          e.preventDefault();
+          if (canvas.getAttribute('data-active') === a.dataset.anchor) {
+            clearActive();
+          } else {
+            setActive(a.dataset.anchor);
+          }
+        });
+      });
+
+      document.addEventListener('click', function(e){
+        if (!canvas.contains(e.target)) clearActive();
+      });
+
+      var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (canHover && !reduceMotion) {
+        document.documentElement.classList.add('has-fine-cursor');
+
+        var mapSection = document.querySelector('.map-section');
+        var cursorEl = document.getElementById('smokeCursor');
+        var wisp1 = cursorEl.querySelector('.wisp-1');
+        var wisp2 = cursorEl.querySelector('.wisp-2');
+
+        var mx = 0, my = 0, x1 = 0, y1 = 0, x2 = 0, y2 = 0, primed = false;
+
+        mapSection.addEventListener('mouseenter', function(e){
+          mx = x1 = x2 = e.clientX;
+          my = y1 = y2 = e.clientY;
+          primed = true;
+          cursorEl.classList.add('visible');
+        });
+        mapSection.addEventListener('mouseleave', function(){
+          cursorEl.classList.remove('visible');
+        });
+        mapSection.addEventListener('mousemove', function(e){
+          mx = e.clientX; my = e.clientY;
+        });
+
+        function loop(){
+          if (primed) {
+            x1 += (mx - x1) * 0.22; y1 += (my - y1) * 0.22;
+            x2 += (mx - x2) * 0.09; y2 += (my - y2) * 0.09;
+            wisp1.style.left = x1 + 'px'; wisp1.style.top = y1 + 'px';
+            wisp2.style.left = x2 + 'px'; wisp2.style.top = y2 + 'px';
+          }
+          requestAnimationFrame(loop);
+        }
+        loop();
+      }
+    })();
+  </script>
+
+</body>
+</html>
