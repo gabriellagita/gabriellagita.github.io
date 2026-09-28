@@ -118,7 +118,17 @@
   }
   .visual-earthrise .type-tag, .visual-gimber .type-tag { position: relative; }
   .visual-research { background: linear-gradient(135deg, #A5BEC1 0%, #6C8893 100%); }
-  .visual-migrant { background: linear-gradient(135deg, #CED7E0 0%, #9B9388 100%); }
+  .visual-migrant { background: linear-gradient(135deg, #DCE6E9 0%, #C4DCE1 100%); }
+  .visual-migrant .type-tag { color: #53768C; }
+  .visual-migrant .card-quote {
+    position: absolute; top: 34px; left: 32px; right: 32px; max-width: 440px;
+    font-family: 'Manrope', sans-serif; font-weight: 500;
+    font-size: clamp(20px, 2.4vw, 27px); line-height: 1.32; color: #30545C;
+  }
+  .visual-migrant .card-quote cite {
+    display: block; margin-top: 16px; font-family: 'Noto Sans', sans-serif; font-style: normal;
+    font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #6C8893;
+  }
   .visual-spatial { background: repeating-linear-gradient(45deg, #F7F5F2, #F7F5F2 12px, #CED7E0 12px, #CED7E0 24px); }
   .visual-spatial .type-tag { color: #6C8893; }
 
@@ -207,8 +217,9 @@
         </div>
       </a>
 
-      <a class="work-card" href="archive.html">
+      <a class="work-card" id="featured-pub" href="https://www.taipeitimes.com/News/editorials/archives/2025/09/21/2003844144" target="_blank" rel="noopener">
         <div class="work-card-visual visual-migrant">
+          <p class="card-quote">&ldquo;This is not monsters versus victims. It is fragility colliding with fragility.&rdquo;<cite>Taipei Times</cite></p>
           <span class="type-tag">Analysis &middot; Migration &amp; Identity</span>
         </div>
         <div class="work-card-meta">
@@ -238,5 +249,75 @@
 
   <div class="footer">&copy; 2026 Gita Gabriella</div>
 
+
+<script>
+// Featured publication: rotates weekly through the list below.
+// To edit: change, add or remove entries. Add a "quote" line to any entry to show it on the card;
+// entries without one show the topic in large type instead.
+// Preview any entry by adding ?pub=1, ?pub=2 ... to the page address.
+(function () {
+  var pool = [
+    { title: "The Hidden Frictions of Migrant Life", pub: "Taipei Times", year: "2025", type: "Analysis", focus: "Migration & Identity",
+      url: "https://www.taipeitimes.com/News/editorials/archives/2025/09/21/2003844144",
+      quote: "This is not monsters versus victims. It is fragility colliding with fragility." },
+    { title: "Redefining Super Aged: Taiwan's Path in an Ageing Era", pub: "Taiwan Insight", year: "2025", type: "Essay", focus: "Demographics & Care",
+      url: "https://taiwaninsight.org/2025/11/03/redefining-super-aged-taiwans-path-in-an-ageing-era/" },
+    { title: "Beyond the Growth Narrative: Energy Constraints in Taiwan's Green Transition", pub: "Taiwan Insight", year: "2026", type: "Essay", focus: "Climate & Energy",
+      url: "https://taiwaninsight.org/2026/05/08/beyond-the-growth-narrative-energy-constraints-in-taiwans-green-transition/" },
+    { title: "From Prodigy to Potential: How Taiwan Could Redefine Intelligence", pub: "Taiwan Insight", year: "2025", type: "Essay", focus: "Education & Talent",
+      url: "https://taiwaninsight.org/2025/12/10/from-prodigy-to-potential-how-taiwan-could-redefine-intelligence/" },
+    { title: "Taiwan Needs a Low-Fertility Strategy, Not Just Fertility Incentives", pub: "CommonWealth Magazine", year: "2026", type: "Op-ed", focus: "Demographics & Care",
+      url: "https://english.cw.com.tw/article/article.action?id=4830" },
+    { title: "Beyond Volume: Designing Slower Tourism in Taiwan", pub: "Taiwan Insight", year: "2026", type: "Essay", focus: "Tourism & Heritage",
+      url: "https://taiwaninsight.org/2026/02/12/beyond-volume-designing-slower-tourism-in-taiwan/" }
+  ];
+
+  function isoWeek(d) {
+    var t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    var day = t.getUTCDay() || 7;
+    t.setUTCDate(t.getUTCDate() + 4 - day);
+    var y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 1));
+    return Math.ceil(((t - y0) / 86400000 + 1) / 7);
+  }
+
+  var card = document.getElementById('featured-pub');
+  if (!card) return;
+
+  // offset of 2 keeps "The Hidden Frictions" as this week's (week 40) pick
+  var idx = (isoWeek(new Date()) + 2) % pool.length;
+  var forced = parseInt(new URLSearchParams(location.search).get('pub'), 10);
+  if (forced >= 1 && forced <= pool.length) idx = forced - 1;
+
+  var p = pool[idx];
+  card.href = p.url;
+
+  var visual = card.querySelector('.work-card-visual');
+  while (visual.firstChild) visual.removeChild(visual.firstChild);
+
+  var big = document.createElement('p');
+  big.className = 'card-quote';
+  if (p.quote) {
+    big.appendChild(document.createTextNode('\u201C' + p.quote + '\u201D'));
+    var cite = document.createElement('cite');
+    cite.textContent = p.pub;
+    big.appendChild(cite);
+  } else {
+    big.appendChild(document.createTextNode(p.focus));
+    var cite2 = document.createElement('cite');
+    cite2.textContent = p.pub;
+    big.appendChild(cite2);
+  }
+  visual.appendChild(big);
+
+  var tag = document.createElement('span');
+  tag.className = 'type-tag';
+  tag.textContent = p.quote ? (p.type + ' \u00B7 ' + p.focus) : p.type;
+  visual.appendChild(tag);
+
+  card.querySelector('h3').textContent = p.title;
+  card.querySelector('.focus').textContent = p.pub;
+  card.querySelector('.year').textContent = p.year;
+})();
+</script>
 </body>
 </html>
