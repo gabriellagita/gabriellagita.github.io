@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earthrise Australia — a narrative reframe · Gita Gabriella</title>
+<meta name="description" content="An independent, speculative brand narrative study of Earthrise Australia by Gita Gabriella.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#03060e;font-family:'Inter',sans-serif;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.3rem 2.5rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(3,6,14,0.9),transparent)}
+.nav-logo a{color:inherit;text-decoration:none}
+.nav-logo{font-family:'Playfair Display',serif;font-size:0.92rem;letter-spacing:0.2em;color:rgba(232,201,138,0.85);text-transform:uppercase}
+.nav-links{display:flex;gap:1.6rem}
+.nav-links a{color:rgba(200,195,185,0.6);text-decoration:none;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;transition:color 0.3s}
+.nav-links a:hover{color:rgba(232,201,138,0.9)}
+
+#hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#03060e}
+.hero-bg{position:absolute;inset:0;background-image:url('https://cdn.pixabay.com/photo/2016/10/20/18/35/earth-1756274_1280.jpg');background-size:cover;background-position:center 30%;opacity:0.55}
+.hero-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,transparent 20%,rgba(3,6,14,0.5) 60%),linear-gradient(to bottom,rgba(3,6,14,0.1) 0%,rgba(3,6,14,0.0) 30%,rgba(3,6,14,0.7) 75%,rgba(3,6,14,1) 100%)}
+.stars-layer{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 8% 12%,rgba(255,255,255,0.7) 0%,transparent 100%),radial-gradient(1px 1px at 22% 6%,rgba(255,255,255,0.5) 0%,transparent 100%),radial-gradient(1.5px 1.5px at 78% 9%,rgba(255,255,255,0.9) 0%,transparent 100%),radial-gradient(1px 1px at 91% 18%,rgba(255,255,255,0.6) 0%,transparent 100%),radial-gradient(1px 1px at 5% 55%,rgba(255,255,255,0.4) 0%,transparent 100%),radial-gradient(1px 1px at 95% 45%,rgba(255,255,255,0.5) 0%,transparent 100%),radial-gradient(1px 1px at 15% 82%,rgba(255,255,255,0.3) 0%,transparent 100%),radial-gradient(1px 1px at 88% 78%,rgba(255,255,255,0.4) 0%,transparent 100%)}
+.hero-content{position:relative;z-index:5;max-width:680px;padding:0 2rem;display:flex;flex-direction:column;align-items:center;margin-top:6rem}
+.label-pill{display:inline-block;border:1px solid rgba(200,169,110,0.35);color:rgba(200,169,110,0.8);font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.42rem 1.2rem;border-radius:2rem;margin-bottom:1.8rem}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.4vw,2.25rem);font-weight:400;line-height:1.28;color:#f0ece4;margin-bottom:1.2rem}
+.hero-h1 em{font-style:italic;color:#e8c98a}
+.hero-sub{font-size:0.88rem;color:rgba(180,174,162,0.85);max-width:440px;line-height:1.9;margin-bottom:2.5rem;font-weight:300}
+.scroll-indicator{display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:rgba(160,152,128,0.5);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;animation:breathe 2.8s ease-in-out infinite}
+.scroll-line{width:1px;height:32px;background:linear-gradient(to bottom,rgba(200,169,110,0.5),transparent)}
+@keyframes breathe{0%,100%{opacity:0.4;transform:translateY(0)}50%{opacity:0.9;transform:translateY(5px)}}
+
+#gap{background:linear-gradient(to bottom,#03060e 0%,#07060a 50%,#0c0b0f 100%);padding:7rem 2rem 6rem;display:flex;flex-direction:column;align-items:center;text-align:center}
+.section-label{font-size:0.67rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,169,110,0.6);margin-bottom:2rem}
+.gap-headline{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.5vw,1.55rem);font-weight:400;line-height:1.45;color:#f0ece4;max-width:620px;margin-bottom:2rem}
+.gap-headline em{font-style:italic;color:#e8c98a}
+.divider{width:40px;height:1px;background:rgba(200,169,110,0.3);margin:0 auto 2rem}
+.gap-body{font-size:0.83rem;color:rgba(175,168,155,0.8);max-width:520px;line-height:1.95;font-weight:300;margin-bottom:1.4rem}
+.gap-body strong{color:rgba(232,220,195,0.9);font-weight:400}
+.seeds-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem}
+.seed-pill{border:1px solid rgba(200,169,110,0.2);color:rgba(200,169,110,0.65);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.4rem 1rem;border-radius:2rem}
+
+/* SCOPE */
+#scope{background:#0c0b0f;padding:5rem 2rem;display:flex;flex-direction:column;align-items:center}
+.scope-inner{width:100%;max-width:680px}
+.scope-label{font-size:0.67rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,169,110,0.5);margin-bottom:2rem;display:block}
+.scope-card{border:1px solid rgba(200,169,110,0.12);border-radius:6px;background:rgba(255,255,255,0.025);padding:2.2rem 2.4rem}
+.scope-stat{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;color:rgba(240,236,228,0.85);margin-bottom:1.4rem;line-height:1.5}
+.scope-stat em{font-style:italic;color:#e8c98a}
+.scope-divider{width:30px;height:1px;background:rgba(200,169,110,0.2);margin-bottom:1.4rem}
+.scope-body{font-size:0.82rem;color:rgba(200,194,182,0.8);line-height:1.95;font-weight:300;margin-bottom:1.4rem}
+.scope-focus{font-size:0.82rem;color:rgba(220,214,202,0.85);line-height:1.95;font-weight:300;padding-left:1.2rem;border-left:2px solid rgba(200,169,110,0.3);font-style:italic}
+
+#reframe{background:linear-gradient(to bottom,#0c0b0f 0%,#0f0d0b 100%);padding:7rem 2rem 6rem;display:flex;flex-direction:column;align-items:center;text-align:center}
+.copy-hero{max-width:560px;margin:0 auto 1.5rem}
+.copy-hero-headline{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:400;line-height:1.3;color:#f0ece4;margin-bottom:1rem}
+.copy-hero-headline em{font-style:italic;color:#e8c98a}
+.copy-hero-sub{font-size:0.82rem;color:rgba(175,168,155,0.8);line-height:1.95;font-weight:300;max-width:460px;margin:0 auto 0.8rem}
+.copy-tagline{font-size:0.72rem;font-style:italic;color:rgba(200,169,110,0.6);letter-spacing:0.05em;margin-top:0.5rem}
+.constellation-wrap{position:relative;width:100%;max-width:680px;margin:3.5rem auto 0}
+
+#execution{background:linear-gradient(to bottom,#0f0d0b 0%,#141210 100%);padding:7rem 2rem 7rem;display:flex;flex-direction:column;align-items:center}
+.seed-row{width:100%;max-width:680px;display:grid;grid-template-columns:1fr 2px 1fr;gap:0 2.5rem;margin-bottom:4rem;align-items:start}
+.seed-row:last-child{margin-bottom:0}
+.seed-divider{width:1px;background:linear-gradient(to bottom,transparent,rgba(200,169,110,0.2),transparent);align-self:stretch;margin:0 auto}
+.brand-side{text-align:right;padding-right:0.5rem}
+.obs-side{padding-left:0.5rem}
+.brand-number{font-family:'Playfair Display',serif;font-size:1.8rem;font-style:italic;color:rgba(200,169,110,0.15);line-height:1;margin-bottom:0.6rem}
+.brand-voice{font-family:'Playfair Display',serif;font-size:clamp(0.95rem,2vw,1.15rem);font-weight:400;line-height:1.5;color:#f0ece4;margin-bottom:0.6rem}
+.brand-voice em{font-style:italic;color:#e8c98a}
+.brand-sub{font-size:0.78rem;color:rgba(175,168,155,0.65);line-height:1.85;font-weight:300}
+.obs-tag{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(200,169,110,0.45);margin-bottom:0.5rem}
+.obs-note{font-size:0.78rem;color:rgba(155,148,135,0.7);line-height:1.85;font-weight:300;font-style:italic}
+
+#where{position:relative;padding:7rem 2rem 8rem;background:linear-gradient(to bottom,#141210 0%,#1a1510 100%);overflow:hidden}
+.stars-field{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.star{position:absolute;border-radius:50%;background:rgba(232,201,138,0.7);animation:twinkle var(--dur) ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:var(--min-o)}50%{opacity:var(--max-o)}}
+.where-inner{position:relative;z-index:2;max-width:780px;margin:0 auto}
+.where-header{text-align:center;margin-bottom:4rem}
+.where-label{font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(200,169,110,0.65);margin-bottom:1.2rem;display:block}
+.where-title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:400;color:#f0ece4;line-height:1.35}
+.where-title em{font-style:italic;color:#e8c98a}
+.artifact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.artifact-label{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.7);margin-bottom:0.7rem;font-weight:600}
+.a01{grid-column:1;grid-row:1 2;align-self:start;margin-top:2rem}
+.a02{grid-column:2;grid-row:1;align-self:start;margin-top:0}
+.a03{grid-column:2;grid-row:2;align-self:start;margin-top:-0.5rem}
+.a04{grid-column:1 / span 2;grid-row:3;margin-top:0.5rem}
+
+.founder-card{position:relative;border-radius:8px;overflow:hidden;border:1px solid rgba(200,169,110,0.15);aspect-ratio:3/4}
+.f-img{width:100%;height:100%;object-fit:cover;display:block}
+.f-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.2) 60%,transparent 100%)}
+.f-content{position:absolute;inset:0;padding:1.2rem 1.4rem;display:flex;flex-direction:column;justify-content:flex-end}
+.f-tag{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.7);margin-bottom:0.4rem}
+.f-title{font-family:'Playfair Display',serif;font-size:0.88rem;font-weight:400;color:#f0ece4;line-height:1.4;margin-bottom:0.5rem}
+.f-callout{font-size:0.72rem;color:rgba(200,195,185,0.7);line-height:1.7;font-weight:300;margin-bottom:0.6rem;font-style:italic}
+.f-meta{display:flex;justify-content:space-between;align-items:center}
+.f-date{font-size:0.6rem;color:rgba(175,168,155,0.4)}
+.f-read{font-size:0.6rem;color:rgba(200,169,110,0.5);letter-spacing:0.08em;text-transform:uppercase}
+.f-credit{font-size:0.55rem;color:rgba(140,133,120,0.3);font-style:italic;margin-top:0.5rem}
+
+.naming-card{border:1px solid rgba(200,169,110,0.15);border-radius:8px;background:rgba(255,255,255,0.04);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:1.4rem 1.5rem}
+.naming-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.2rem;padding-bottom:0.8rem;border-bottom:1px solid rgba(200,169,110,0.1)}
+.naming-title{font-family:'Playfair Display',serif;font-size:0.82rem;font-style:italic;color:rgba(240,236,228,0.75)}
+.naming-subtitle{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,169,110,0.35)}
+.name-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem 1.2rem;margin-bottom:1.2rem}
+.name-tag{font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.2rem}
+.name-tag.existing{color:rgba(200,169,110,0.45)}
+.name-tag.speculative{color:rgba(140,180,140,0.45)}
+.name-main{font-family:'Playfair Display',serif;font-size:0.88rem;font-weight:400;color:#f0ece4;margin-bottom:0.15rem}
+.name-desc{font-size:0.62rem;color:rgba(155,148,135,0.5);line-height:1.4}
+.naming-legend{display:flex;flex-direction:column;gap:0.35rem;padding-top:0.8rem;border-top:1px solid rgba(200,169,110,0.08)}
+.legend-item{display:flex;align-items:center;gap:0.35rem;font-size:0.55rem;color:rgba(140,133,120,0.4);letter-spacing:0.06em}
+.legend-dot{width:4px;height:4px;border-radius:50%}
+.legend-dot.existing{background:rgba(200,169,110,0.45)}
+.legend-dot.speculative{background:rgba(140,180,140,0.45)}
+
+.proof-row{display:grid;grid-template-columns:1.2fr 1fr;gap:0.8rem}
+.proof-card{border:1px solid rgba(200,169,110,0.15);border-radius:8px;background:rgba(255,255,255,0.04);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:1.2rem;display:flex;flex-direction:column;justify-content:space-between}
+.proof-stat{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:#f0ece4;line-height:1;margin-bottom:0.3rem}
+.proof-stat em{font-style:italic;color:#e8c98a}
+.proof-desc{font-size:0.68rem;color:rgba(175,168,155,0.65);line-height:1.5;margin-bottom:0.8rem;font-weight:300}
+.proof-text-claim{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;font-style:italic;color:#e8c98a;line-height:1.35;margin-bottom:0.4rem}
+.proof-text-desc{font-size:0.68rem;color:rgba(175,168,155,0.65);line-height:1.5;margin-bottom:0.8rem;font-weight:300}
+.proof-citation{font-size:0.54rem;color:rgba(140,133,120,0.38);font-style:italic;line-height:1.6;border-top:1px solid rgba(200,169,110,0.08);padding-top:0.6rem}
+.proof-citation strong{font-style:normal;font-weight:400;color:rgba(160,152,128,0.45)}
+
+.partnership-stack{display:flex;flex-direction:column;gap:0.8rem}
+.partnership-card{position:relative;width:100%;border-radius:8px;overflow:hidden;border:1px solid rgba(200,169,110,0.12)}
+.pc-1{height:180px}.pc-2{height:150px}
+.pc-bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.pc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0.05) 100%)}
+.pc-side{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.5)0%,transparent 60%)}
+.pc-content{position:absolute;bottom:0;left:0;padding:1rem 1.2rem;max-width:70%}
+.pc-track{font-size:0.54rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.6);margin-bottom:0.3rem}
+.pc-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;color:#f0ece4;margin-bottom:0.25rem;line-height:1.2}
+.pc-name em{font-style:italic;color:#e8c98a}
+.pc-format{font-size:0.65rem;color:rgba(175,168,155,0.6);line-height:1.55;font-weight:300;margin-bottom:0.4rem}
+.pc-reach{font-size:0.55rem;color:rgba(140,133,120,0.45);font-style:italic}
+.pc-meta{position:absolute;top:0.8rem;right:1rem;font-size:0.54rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,169,110,0.3)}
+
+#about{background:linear-gradient(to bottom,#1a1510 0%,#1e1610 100%);padding:7rem 2rem 5rem;display:flex;flex-direction:column;align-items:center}
+.about-inner{width:100%;max-width:680px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-bottom:5rem}
+.about-name{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:400;color:#f0ece4;margin-bottom:0.3rem}
+.about-name em{font-style:italic;color:#e8c98a}
+.about-role{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(200,169,110,0.55);margin-bottom:1.4rem}
+.about-bio{font-size:0.82rem;color:rgba(175,168,155,0.8);line-height:1.95;font-weight:300;margin-bottom:2rem}
+.contact-label{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(160,152,128,0.5);margin-bottom:0.8rem}
+.contact-links{display:flex;flex-direction:column;gap:0.6rem}
+.contact-link{display:inline-flex;align-items:center;gap:0.5rem;color:rgba(200,169,110,0.7);font-size:0.8rem;text-decoration:none;letter-spacing:0.04em;border-bottom:1px solid rgba(200,169,110,0.15);padding-bottom:0.4rem;transition:color 0.3s,border-color 0.3s;width:fit-content}
+.contact-link:hover{color:rgba(232,201,138,0.95);border-color:rgba(200,169,110,0.4)}
+.contact-link span{font-size:0.68rem;color:rgba(160,152,128,0.4);letter-spacing:0.1em;text-transform:uppercase}
+.about-right{padding-top:0.3rem}
+.what-i-do-label{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(160,152,128,0.5);margin-bottom:1rem}
+.what-i-do{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;font-style:italic;color:rgba(240,236,228,0.75);line-height:1.7;margin-bottom:1.8rem}
+.methodology{font-size:0.74rem;color:rgba(140,133,120,0.5);line-height:1.9;font-style:italic;border-top:1px solid rgba(200,169,110,0.08);padding-top:1.2rem}
+.divider-line{width:100%;height:1px;background:linear-gradient(to right,transparent,rgba(200,169,110,0.15),transparent);margin-bottom:2.5rem}
+footer{width:100%;max-width:680px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-logo a{color:inherit;text-decoration:none}
+.footer-logo a:hover{color:rgba(232,201,138,0.7)}
+.footer-links{width:100%;display:flex;gap:1.6rem;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.6rem}
+.footer-links a{color:rgba(160,152,128,0.55);text-decoration:none;transition:color 0.3s}
+.footer-links a:hover{color:rgba(232,201,138,0.9)}
+.footer-logo{font-family:'Playfair Display',serif;font-size:0.82rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.35)}
+.footer-note{font-size:0.68rem;color:rgba(140,133,120,0.35);letter-spacing:0.04em;text-align:right;line-height:1.7}
+
+.fade-in{opacity:0;transform:translateY(18px);transition:opacity 0.8s ease,transform 0.8s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in-slow{opacity:0;transition:opacity 1.6s ease 0.5s}
+.fade-in-slow.visible{opacity:1}
+.hero-fade{opacity:0;transform:translateY(20px);animation:fadeUp 0.9s ease forwards}
+.hero-fade:nth-child(1){animation-delay:0.2s}
+.hero-fade:nth-child(2){animation-delay:0.45s}
+.hero-fade:nth-child(3){animation-delay:0.7s}
+.hero-fade:nth-child(4){animation-delay:0.95s}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+@media (max-width:720px){
+  nav{padding:1rem 1.2rem}
+  .nav-links{display:none}
+  #gap,#reframe,#execution,#where,#about,#scope{padding-left:1.4rem;padding-right:1.4rem}
+  .scope-card{padding:1.6rem 1.4rem}
+  .seed-row{grid-template-columns:1fr;gap:1rem 0;margin-bottom:3rem}
+  .seed-divider{display:none}
+  .brand-side{text-align:left;padding-right:0}
+  .obs-side{padding-left:0}
+  .artifact-grid{grid-template-columns:1fr}
+  .a01,.a02,.a03,.a04{grid-column:1;grid-row:auto;margin-top:0}
+  .proof-row{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem;margin-bottom:3.5rem}
+  footer{flex-direction:column;align-items:flex-start}
+  .footer-note{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><a href="../index.html">Gita Gabriella</a></div>
+  <div class="nav-links">
+    <a href="#gap">The gap</a>
+    <a href="#scope">Scope</a>
+    <a href="#reframe">The reframe</a>
+    <a href="#execution">Observations</a>
+    <a href="#where">Where this could go</a>
+    <a href="#about">About</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="stars-layer"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="label-pill hero-fade">Independent brand study &mdash; Earthrise Australia</div>
+    <h1 class="hero-h1 hero-fade">They named it after <em>the most important environmental photograph</em> ever taken.<br>Then wrote a website like they'd never seen it.</h1>
+    <p class="hero-sub hero-fade">A speculative narrative reframe of Earthrise Australia &mdash; an alternative coffee brand sitting on an extraordinary name, and not yet using it.</p>
+    <div class="scroll-indicator hero-fade"><span>Scroll</span><div class="scroll-line"></div></div>
+  </div>
+</section>
+
+<section id="gap">
+  <div class="section-label fade-in">The gap</div>
+  <h2 class="gap-headline fade-in">The Apollo 8 photograph didn't just show Earth from space &mdash; it changed how humans understood <em>what Earth is.</em><br>Earthrise Australia took that name. Then wrote a supplement label.</h2>
+  <div class="divider fade-in"></div>
+  <p class="gap-body fade-in">The copy leans clinical &mdash; <strong>"science-backed," "clinically dosed," "no jitters, no crash"</strong> &mdash; language indistinguishable from every other adaptogen brand in the category. The name promises a perspective shift. The website delivers a product page.</p>
+  <p class="gap-body fade-in">The cosmic seeds are already there. They've just never been connected.</p>
+  <div class="seeds-row fade-in">
+    <span class="seed-pill">The interchangeability problem</span>
+    <span class="seed-pill">The unowned cosmic space</span>
+    <span class="seed-pill">Legibility</span>
+    <span class="seed-pill">The immediate risk</span>
+  </div>
+</section>
+
+<section id="scope">
+  <div class="scope-inner">
+    <span class="scope-label fade-in">Scope</span>
+    <div class="scope-card fade-in">
+      <div class="scope-stat">
+        <em>200,000+</em> cups have been served since late 2023.<br>The commercial machine is running as intended.
+      </div>
+      <div class="scope-divider"></div>
+      <p class="scope-body">What we cannot infer from available public information is whether the current system is producing preference or discovery &mdash; whether previous customers who discovered Earthrise through search stay because they have chosen Earthrise, or cycle through because the next tab has a slightly better offer. In a niche category with several active players, those can look identical from a volume chart. They diverge sharply the moment the context changes &mdash; for example, when a customer is standing in a retail aisle and has no idea what the difference between one brand's specialty and another is.</p>
+      <p class="scope-focus">This case study is scoped to the second layer. Not the discovery system, which seems to be working. This case study is intended to highlight the narrative work that decides whether the brand keeps getting chosen.</p>
+    </div>
+  </div>
+</section>
+
+<section id="reframe">
+  <div class="section-label fade-in">The reframe</div>
+  <div class="copy-hero fade-in">
+    <div class="copy-hero-headline">The view from up there<br>shows no <em>borders.</em></div>
+    <p class="copy-hero-sub">So when we went looking for the best of what Earth offers &mdash; the lion's mane from the forests, the cacao from the equator, the adaptogens that grow where they want to grow &mdash; we didn't let borders stop us. Because you deserve the best. Not just the most convenient.</p>
+    <div class="copy-tagline">Proudly coffee-free. Proudly borderless.</div>
+  </div>
+  <div class="constellation-wrap fade-in-slow">
+    <svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" width="100%" height="360">
+      <line x1="310" y1="175" x2="105" y2="68" stroke="rgba(200,169,110,0.12)" stroke-width="0.8" stroke-dasharray="2,6"/>
+      <line x1="310" y1="175" x2="520" y2="55" stroke="rgba(200,169,110,0.12)" stroke-width="0.8" stroke-dasharray="2,6"/>
+      <line x1="310" y1="175" x2="88" y2="278" stroke="rgba(200,169,110,0.12)" stroke-width="0.8" stroke-dasharray="2,6"/>
+      <line x1="310" y1="175" x2="565" y2="295" stroke="rgba(200,169,110,0.12)" stroke-width="0.8" stroke-dasharray="2,6"/>
+      <line x1="310" y1="175" x2="390" y2="320" stroke="rgba(200,169,110,0.12)" stroke-width="0.8" stroke-dasharray="2,6"/>
+      <circle cx="310" cy="175" r="5.5" fill="rgba(232,201,138,0.65)"/>
+      <circle cx="310" cy="175" r="14" fill="none" stroke="rgba(232,201,138,0.12)" stroke-width="1"/>
+      <text x="310" y="157" text-anchor="middle" font-family="Playfair Display,serif" font-style="italic" font-size="12" fill="rgba(232,201,138,0.85)">the name</text>
+      <circle cx="105" cy="68" r="2.5" fill="rgba(200,169,110,0.55)"/>
+      <text x="105" y="52" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="500" fill="rgba(200,169,110,0.75)" letter-spacing="0.08em">ASTRONAUT VISUAL</text>
+      <text x="105" y="64" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(175,168,155,0.45)">buried mid-page</text>
+      <circle cx="520" cy="55" r="4" fill="rgba(200,169,110,0.45)"/>
+      <text x="520" y="38" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="500" fill="rgba(200,169,110,0.75)" letter-spacing="0.08em">STELLAR MIND &middot; NIGHT FALL</text>
+      <text x="520" y="50" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(175,168,155,0.45)">cosmic instinct, packaging only</text>
+      <circle cx="88" cy="278" r="3" fill="rgba(200,169,110,0.6)"/>
+      <text x="88" y="262" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="500" fill="rgba(200,169,110,0.75)" letter-spacing="0.08em">FOUNDER VOICE</text>
+      <text x="88" y="274" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(175,168,155,0.45)">warm &mdash; blog only</text>
+      <circle cx="565" cy="295" r="2" fill="rgba(200,169,110,0.4)"/>
+      <text x="565" y="278" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="500" fill="rgba(200,169,110,0.75)" letter-spacing="0.08em">GLOBAL SOURCING</text>
+      <text x="565" y="290" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(175,168,155,0.45)">the philosophy, unarticulated</text>
+      <circle cx="390" cy="320" r="3.5" fill="rgba(200,169,110,0.5)"/>
+      <text x="390" y="338" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="500" fill="rgba(200,169,110,0.75)" letter-spacing="0.08em">PROOF POINTS</text>
+      <text x="390" y="350" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(175,168,155,0.45)">200k+ cups, scattered across page</text>
+    </svg>
+  </div>
+</section>
+
+<section id="execution">
+  <div class="section-label fade-in">Observations</div>
+  <div class="seed-row fade-in">
+    <div class="brand-side">
+      <div class="brand-number">01</div>
+      <div class="brand-voice">Findable.<br>And <em>forgettable.</em></div>
+      <div class="brand-sub">SEO copy has its advantages and its cost. It makes you findable. It also makes you sound like everyone else &mdash; even brands solving completely different problems.</div>
+    </div>
+    <div class="seed-divider"></div>
+    <div class="obs-side">
+      <div class="obs-tag">Gita Gabriella</div>
+      <div class="obs-note">The first thing we noticed is that Earthrise sounds like other brands &mdash; even ones selling something completely different. Same clinical register, same "no jitters" promise, similar minimalist website structure. The origin story follows the same arc too &mdash; "coffee made us feel bad, so we looked for something better" &mdash; a shape most competitors share. SEO and distinctiveness aren't in conflict, they're doing different jobs. SEO funnels people to the page. Distinctiveness is what makes them buy, come back, and recommend. And it's distinctiveness &mdash; not search ranking &mdash; that gets you chosen off a retail shelf.</div>
+    </div>
+  </div>
+  <div class="seed-row fade-in">
+    <div class="brand-side">
+      <div class="brand-number">02</div>
+      <div class="brand-voice">The cosmic space<br>is <em>already there.</em><br>Partially.</div>
+      <div class="brand-sub">The packaging has the gradient, the planetary orb, names like Stellar Mind and Night Fall. The instinct exists. It just never became a coherent style.</div>
+    </div>
+    <div class="seed-divider"></div>
+    <div class="obs-side">
+      <div class="obs-tag">Gita Gabriella</div>
+      <div class="obs-note">For a brand named Earthrise, not owning the cosmic register is an opportunity lost. The ticker bar and emoji read as an attempt at friendliness &mdash; understandable. But the packaging already has the cosmic gradient, the planetary orb, Stellar Mind, Night Fall. The instinct is there in scattered moments &mdash; it just never became a coherent style. A coherent style is what builds stronger association, makes a brand easier to remember, and harder to mistake for someone else. That becomes urgent the moment you're competing for shelf space rather than search rankings.</div>
+    </div>
+  </div>
+  <div class="seed-row fade-in">
+    <div class="brand-side">
+      <div class="brand-number">03</div>
+      <div class="brand-voice">The proof exists.<br>It just doesn't <em>land.</em></div>
+      <div class="brand-sub">200k+ cups sold. "As seen in." Most affordable in Australia. The credibility is real &mdash; but scattered across the page in different formats, it reads as uncertainty rather than authority.</div>
+    </div>
+    <div class="seed-divider"></div>
+    <div class="obs-side">
+      <div class="obs-tag">Gita Gabriella</div>
+      <div class="obs-note">The proof points exist &mdash; "as seen in," 200k+ cups sold, "most affordable mushroom coffee alternative in Australia." The instinct to use them is valid. But scattered across the page in different formats, what was likely planned as gentle ongoing reassurance ends up creating a subtle lack of confidence. Grouped in one section, given actual visual weight &mdash; something like a bold stat with a small citation &mdash; the same proof could land very differently.</div>
+    </div>
+  </div>
+  <div class="seed-row fade-in">
+    <div class="brand-side">
+      <div class="brand-number">04</div>
+      <div class="brand-voice">Who is this<br><em>actually</em> for &mdash;<br>and where does it show up?</div>
+      <div class="brand-sub">Audience ambiguity and an absence of real-world presence are two sides of the same gap. Both are solvable without a big budget.</div>
+    </div>
+    <div class="seed-divider"></div>
+    <div class="obs-side">
+      <div class="obs-tag">Gita Gabriella</div>
+      <div class="obs-note">We noticed that Earthrise's blog mentions benefits for women navigating menopause &mdash; a specific and underserved audience signal that never makes it to the main page. A featured blog section could do double duty: surfacing the human voice behind the brand and the more specific audiences it serves, without cluttering the main positioning. Beyond the website, the brand name itself opens up low-budget presence possibilities &mdash; popup markets during planetary celebrations, collaborations near planetariums, partnerships with sky photographers or stargazing communities. The products open a second track: morning energy maps to wellness communities, focus blends to study groups, sleep and calm products to evening and camping rituals. Note: these are possibilities based on public information only &mdash; local availability and existing partnerships in Australia were not verified.</div>
+    </div>
+  </div>
+</section>
+
+<section id="where">
+  <div class="stars-field" id="starsField"></div>
+  <div class="where-inner">
+    <div class="where-header fade-in">
+      <span class="where-label">Where this could go</span>
+      <div class="where-title">Four artifacts. Each one closing<br>a loop from the <em>observations.</em></div>
+    </div>
+    <div class="artifact-grid">
+      <div class="a01 fade-in">
+        <div class="artifact-label">01 &mdash; Founder voice, surfaced</div>
+        <div class="founder-card">
+          <img class="f-img" src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80" alt="iced latte" onerror="this.style.background='linear-gradient(135deg,#1a1208,#241808)'"/>
+          <div class="f-overlay"></div>
+          <div class="f-content">
+            <div class="f-tag">Stories &middot; Founder Update &middot; Adam Racovalis</div>
+            <div class="f-title">It's 2AM. Your body is craving coffee.</div>
+            <div class="f-callout">For those who want to reconfigure their mornings &mdash; not just survive them.</div>
+            <div class="f-meta"><div class="f-date">July 2026</div><div class="f-read">Read the full update</div></div>
+            <div class="f-credit">Speculative copy &mdash; Gita Gabriella, 2026</div>
+          </div>
+        </div>
+      </div>
+      <div class="a02 fade-in">
+        <div class="artifact-label">02 &mdash; Product naming, extended</div>
+        <div class="naming-card">
+          <div class="naming-header">
+            <div class="naming-title">A naming logic that holds.</div>
+            <div class="naming-subtitle">Cosmic register</div>
+          </div>
+          <div class="name-grid">
+            <div><div class="name-tag existing">Existing</div><div class="name-main">Stellar Mind</div><div class="name-desc">Lion's mane &middot; clarity + focus</div></div>
+            <div><div class="name-tag existing">Existing</div><div class="name-main">Night Fall</div><div class="name-desc">Reishi &middot; calm + rest</div></div>
+            <div><div class="name-tag existing">Existing</div><div class="name-main">Dark Matter</div><div class="name-desc">Cacao &middot; comfort + focus</div></div>
+            <div><div class="name-tag speculative">Speculative</div><div class="name-main">First Light</div><div class="name-desc">7 mushroom &middot; balance + energy</div></div>
+            <div><div class="name-tag speculative">Derived &mdash; Earthrise colour naming</div><div class="name-main">Nebula</div><div class="name-desc">Spoon + bag clip</div></div>
+            <div><div class="name-tag speculative">Speculative</div><div class="name-main">Orbit</div><div class="name-desc">Self-stirring mug</div></div>
+          </div>
+          <div class="naming-legend">
+            <div class="legend-item"><div class="legend-dot existing"></div>Existing Earthrise name</div>
+            <div class="legend-item"><div class="legend-dot speculative"></div>Speculative &mdash; Gita Gabriella, 2026</div>
+            <div class="legend-item"><div class="legend-dot speculative"></div>Derived from Earthrise colour naming &mdash; Gita Gabriella, 2026</div>
+          </div>
+        </div>
+      </div>
+      <div class="a03 fade-in">
+        <div class="artifact-label">03 &mdash; Proof points, grouped</div>
+        <div class="proof-row">
+          <div class="proof-card">
+            <div><div class="proof-stat">200,000<em>+</em></div><div class="proof-desc">cups served since launching in 2023</div></div>
+            <div class="proof-citation"><strong>Source:</strong> Earthrise homepage, accessed July 2026<br>Speculative placement &mdash; Gita Gabriella, 2026</div>
+          </div>
+          <div class="proof-card">
+            <div><div class="proof-text-claim">Most affordable</div><div class="proof-text-desc">mushroom coffee alternative in Australia</div></div>
+            <div class="proof-citation"><strong>Source:</strong> Earthrise blog, Mar 2025 &mdash; not verified independently<br>Speculative placement &mdash; Gita Gabriella, 2026</div>
+          </div>
+        </div>
+      </div>
+      <div class="a04 fade-in">
+        <div class="artifact-label">04 &mdash; Presence possibilities</div>
+        <div class="partnership-stack">
+          <div class="partnership-card pc-1">
+            <div class="pc-bg" style="background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=900&q=80')"></div>
+            <div class="pc-overlay"></div><div class="pc-side"></div>
+            <div class="pc-meta">Track 01 &middot; Brand name</div>
+            <div class="pc-content">
+              <div class="pc-track">Concept &mdash; cosmic associations</div>
+              <div class="pc-name"><em>First Light</em> Sessions</div>
+              <div class="pc-format">A stargazing popup timed to a planetary event &mdash; product sampling, sky photography, intimate format.</div>
+              <div class="pc-reach">Astronomy communities, sky photographers &middot; Speculative &mdash; Gita Gabriella, 2026</div>
+            </div>
+          </div>
+          <div class="partnership-card pc-2">
+            <div class="pc-bg" style="background-image:url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=900&q=80')"></div>
+            <div class="pc-overlay"></div><div class="pc-side"></div>
+            <div class="pc-meta">Track 02 &middot; Product benefit</div>
+            <div class="pc-content">
+              <div class="pc-track">Concept &mdash; early morning ritual</div>
+              <div class="pc-name">Before <em>the Day</em></div>
+              <div class="pc-format">Dawn yoga or birdwatching in a botanical garden &mdash; slow, intentional, product sampling as part of the ritual.</div>
+              <div class="pc-reach">Wellness communities, early risers &middot; Speculative &mdash; Gita Gabriella, 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-inner">
+    <div class="section-label fade-in">About</div>
+    <div class="about-grid fade-in">
+      <div>
+        <div class="about-name">Gita <em>Gabriella</em></div>
+        <div class="about-role">Narrative &amp; strategy, across brands and policy</div>
+        <p class="about-bio">I move between brand narrative, policy research, and cultural analysis &mdash; looking for the point where a story stops holding together, and building the case for what should replace it.</p>
+        <div class="contact-label">Get in touch</div>
+        <div class="contact-links">
+          <a href="mailto:gabriellagita.work@gmail.com" class="contact-link">gabriellagita.work@gmail.com <span>Email</span></a>
+          <a href="https://www.linkedin.com/in/gita-gabriella-06a24b91" target="_blank" rel="noopener" class="contact-link">linkedin.com/in/gita-gabriella <span>LinkedIn</span></a>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="what-i-do-label">What this work is</div>
+        <div class="what-i-do">Finding the gap between what a brand promises and what it actually says &mdash; then showing what it looks like when those two things finally meet.</div>
+        <div class="methodology">Independent speculative study. Not commissioned by or affiliated with Earthrise Australia. Built entirely from publicly available information: website, blog posts, product listings, third-party reviews, and directory listings as of 2026. No internal briefs, founder interviews, or proprietary data were used. Audience insights flagged as external observations, not confirmed positioning.</div>
+      </div>
+    </div>
+    <div class="divider-line fade-in"></div>
+    <footer class="fade-in">
+      <div class="footer-links"><a href="../index.html#selected-work">&larr; Work</a><a href="../archive.html">Archive</a><a href="../about.html">About</a></div>
+      <div class="footer-logo"><a href="../index.html">Gita Gabriella</a></div>
+      <div class="footer-note">&copy; 2026 Gita Gabriella<br>Independent speculative case study &mdash; not affiliated with Earthrise Australia</div>
+    </footer>
+  </div>
+</section>
+
+<script>
+window.addEventListener('load',()=>{
+  const field=document.getElementById('starsField');
+  const stars=[
+    ...Array.from({length:55},()=>({x:Math.random()*100,y:Math.random()*100,r:Math.random()*1.2+0.4,minO:(Math.random()*0.2+0.1).toFixed(2),maxO:(Math.random()*0.4+0.3).toFixed(2),dur:(Math.random()*4+2).toFixed(1),glow:false})),
+    ...Array.from({length:12},()=>({x:Math.random()*100,y:Math.random()*100,r:Math.random()*2+1.8,minO:(Math.random()*0.2+0.2).toFixed(2),maxO:(Math.random()*0.4+0.5).toFixed(2),dur:(Math.random()*5+3).toFixed(1),glow:true}))
+  ];
+  stars.forEach(s=>{
+    const el=document.createElement('div');
+    el.className='star';
+    el.style.cssText=`left:${s.x}%;top:${s.y}%;width:${s.r*2}px;height:${s.r*2}px;--min-o:${s.minO};--max-o:${s.maxO};--dur:${s.dur}s;${s.glow?`box-shadow:0 0 ${s.r*4}px ${s.r*2}px rgba(232,201,138,0.25);`:''}`;
+    field.appendChild(el);
+  });
+});
+
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0.1});
+document.querySelectorAll('.fade-in,.fade-in-slow').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

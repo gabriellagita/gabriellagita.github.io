@@ -108,8 +108,15 @@
   .work-card-meta .focus { font-size: 13px; color: #9B9388; margin-top: 4px; }
 
   /* distinct visual identity per project, per the brief */
-  .visual-earthrise { background: linear-gradient(135deg, #53768C 0%, #30545C 100%); }
-  .visual-gimber { background: linear-gradient(135deg, #81AEB9 0%, #53768C 100%); }
+  .visual-earthrise { background: url('images/card-earthrise.svg') center / cover no-repeat, linear-gradient(135deg, #53768C 0%, #30545C 100%); }
+  .visual-gimber { background: url('images/card-gimber.jpg') center / cover no-repeat, linear-gradient(135deg, #81AEB9 0%, #53768C 100%); }
+  /* soft fade behind the type label on image cards */
+  .visual-earthrise::before, .visual-gimber::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(28,31,33,0.55) 0%, rgba(28,31,33,0) 48%);
+    pointer-events: none;
+  }
+  .visual-earthrise .type-tag, .visual-gimber .type-tag { position: relative; }
   .visual-research { background: linear-gradient(135deg, #A5BEC1 0%, #6C8893 100%); }
   .visual-migrant { background: linear-gradient(135deg, #CED7E0 0%, #9B9388 100%); }
   .visual-spatial { background: repeating-linear-gradient(45deg, #F7F5F2, #F7F5F2 12px, #CED7E0 12px, #CED7E0 24px); }
@@ -161,7 +168,7 @@
 
     <div class="work-scroll">
 
-      <a class="work-card" href="https://comfy-meerkat-84fb84.netlify.app/" target="_blank" rel="noopener">
+      <a class="work-card" href="/earthrise/">
         <div class="work-card-visual visual-earthrise">
           <span class="type-tag">Strategy &middot; Brand &amp; Narrative</span>
         </div>
