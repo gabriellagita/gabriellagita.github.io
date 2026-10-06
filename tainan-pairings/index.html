@@ -299,6 +299,15 @@ details.dd[open] summary::after{content:"\2212"}
 footer{max-width:76rem;margin:0 auto;padding:clamp(4rem,10vh,6rem) var(--pad) 4rem;font-size:.9rem;color:var(--soft)}
 
 @media (prefers-reduced-motion:reduce){.js .frame{transition:none}}
+
+/* site navigation (added for the portfolio) */
+.sitebar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:.4rem 1.2rem;padding:.8rem var(--pad);background:var(--paper);border-bottom:1px solid var(--rule);font-size:.875rem;color:var(--ink)}
+.sitebar a{text-decoration:none}
+.sitebar a:hover,.sitebar a:focus-visible{text-decoration:underline;text-underline-offset:3px}
+.sitebar .links{display:flex;gap:1.3rem;color:var(--soft)}
+main [id]{scroll-margin-top:3.6rem}
+.footlinks{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;margin:1.6rem 0 0}
+.footlinks a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -306,7 +315,7 @@ footer{max-width:76rem;margin:0 auto;padding:clamp(4rem,10vh,6rem) var(--pad) 4r
 
 <section class="stage" id="stage" aria-label="Opening: from a temple street to a question">
   <div class="top">
-    <span>Tainan Pairings, pilot concept (draft, build C)</span>
+    <span><a href="../index.html">&larr; Gita Gabriella</a> &nbsp;&middot;&nbsp; Tainan Pairings, pilot concept (draft, build C)</span>
     <a href="#hinge">Skip the opening</a>
   </div>
   <p class="sr" id="live" aria-live="polite"></p>
@@ -467,6 +476,7 @@ footer{max-width:76rem;margin:0 auto;padding:clamp(4rem,10vh,6rem) var(--pad) 4r
 </section>
 
 <main>
+<nav class="sitebar" aria-label="Site"><a class="home" href="../index.html">&larr; Gita Gabriella</a><span class="links"><a href="../index.html#selected-work">Work</a><a href="../archive.html">Archive</a><a href="../about.html">About</a></span></nav>
 
 <!-- 1. THE GAP -->
 <section class="sec first" id="gap">
@@ -814,7 +824,7 @@ footer{max-width:76rem;margin:0 auto;padding:clamp(4rem,10vh,6rem) var(--pad) 4r
 
 </main>
 
-<footer>Tainan Pairings is an independent, speculative pilot concept. Draft.</footer>
+<footer>Tainan Pairings is an independent, speculative pilot concept. Draft.<p class="footlinks"><a href="../index.html">&larr; Back to Gita Gabriella’s work</a><a href="../archive.html">Archive</a><a href="../about.html">About</a></p></footer>
 <script>
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
