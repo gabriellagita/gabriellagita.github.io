@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Tainan Pairings: look closer (draft)</title>
+<script>document.documentElement.classList.add('js');
+if(/[?&]guides/.test(location.search))document.documentElement.classList.add('guides');
+window.aiCheck=function(img){var s=img.closest('.shot');if(!s)return;s.classList.remove('empty');var f=img.getAttribute('data-file')||img.getAttribute('src')||'';if(/(^|\/)ai-[^\/]*$/.test(f))s.classList.add('ai');};
+window.imgFail=function(img){var f=img.getAttribute('data-file'),t=+(img.getAttribute('data-try')||0);if(f&&t<1){img.setAttribute('data-try',t+1);img.src=f;}else{var s=img.closest('.shot');if(s)s.classList.add('empty');}};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F4F1; --paper-2:#E9E9E5; --ink:#1A1A1A; --soft:#555552; --rule:#CFCFCA;
+  --dark:#161616; --dark-2:#222220; --on-dark:#F1F1ED; --dim:#A3A39D;
+  --serif:"Newsreader","Noto Serif TC",Georgia,serif;
+  --sans:"Public Sans","Noto Sans TC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --pad:clamp(1.25rem,4vw,3.5rem);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:auto}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tag{display:inline-block;font-size:.8125rem;line-height:1.35;color:var(--soft);border-bottom:1px dashed var(--soft);margin-left:.25rem}
+.refs{font-size:1em;line-height:0;margin-left:.1em}
+.refs a{font:500 .66rem var(--mono);color:var(--soft);text-decoration:none;margin-left:.22em;padding:0 .05em}
+.refs a:hover{text-decoration:underline;color:var(--ink)}
+.zh{font-family:var(--serif)}
+
+/* ---------- opening stage: five beats ---------- */
+.stage{position:relative;background:var(--dark);color:var(--on-dark);overflow:hidden}
+.js .stage{height:100vh;height:100svh;min-height:36rem}
+.js .stage.stacked{height:auto;min-height:0}
+.beat{position:relative;min-height:80vh;border-bottom:1px solid #333}
+.js .beat{position:absolute;inset:0;min-height:0;border:0;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s}
+.js .beat.on{opacity:1;visibility:visible}
+.js .stage.stacked .beat{position:relative;min-height:90vh;opacity:1;visibility:visible;border-bottom:1px solid #333;transition:none}
+.beat.light{background:var(--paper);color:var(--ink)}
+.stacked .ctrl{display:none}
+
+/* images: three states. cleared photo, labelled AI illustration, or nothing (type carries the beat) */
+.shot{position:absolute;inset:0;background:#1C1C1A}
+.shot img{display:block;width:100%;height:100%;object-fit:cover}
+.shot::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to right,rgba(0,0,0,.62),rgba(0,0,0,0) 62%),linear-gradient(to top,rgba(0,0,0,.5),rgba(0,0,0,0) 45%)}
+.shot.empty img{display:none}
+.shot.empty::after{display:none}
+.shot p{margin:0}
+.ailabel{display:none;position:absolute;z-index:4;right:var(--pad);bottom:clamp(5.2rem,11vh,6.2rem);max-width:18rem;margin:0;
+  background:rgba(0,0,0,.68);color:var(--on-dark);padding:.5rem .75rem;font:500 .8125rem/1.35 var(--sans);text-align:right}
+.shot.ai ~ .ailabel{display:block}
+.shot .ph{display:none}
+/* dev view: add ?guides to the address to see what each image slot expects */
+html.guides .shot.empty{background:#7B7B77}
+html.guides .shot.empty::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+   linear-gradient(to top right,transparent calc(50% - .5px),rgba(255,255,255,.3) calc(50% - .5px),rgba(255,255,255,.3) calc(50% + .5px),transparent calc(50% + .5px)),
+   linear-gradient(to bottom right,transparent calc(50% - .5px),rgba(255,255,255,.3) calc(50% - .5px),rgba(255,255,255,.3) calc(50% + .5px),transparent calc(50% + .5px))}
+html.guides .shot.empty .ph{display:flex;position:absolute;z-index:1;left:50%;top:22%;transform:translateX(-50%);width:min(34rem,calc(100% - 2*var(--pad)));
+  background:rgba(22,22,22,.62);border:1px solid rgba(255,255,255,.4);color:var(--on-dark);padding:1rem 1.15rem;font:400 .8rem/1.55 var(--mono);flex-direction:column;gap:.55rem}
+html.guides .shot .ph .phk{font-weight:500;text-transform:uppercase;letter-spacing:.06em;font-size:.72rem;color:#D8D8D2}
+html.guides .shot .ph .phs{color:#C9C9C3;font-size:.74rem}
+html.guides .shot.empty ~ .cap{outline:1px dashed rgba(255,255,255,.55);outline-offset:.9rem}
+
+.cap{position:absolute;z-index:2;left:var(--pad);bottom:clamp(5.25rem,13vh,7.5rem);max-width:min(36rem,88vw)}
+.prompt{font:400 clamp(1.75rem,4.2vw,3.25rem)/1.12 var(--serif);letter-spacing:-.01em;margin:0;text-wrap:balance}
+.prompt em{display:block}
+.lead{font:400 clamp(1.25rem,2.4vw,1.75rem)/1.3 var(--serif);margin:0;text-wrap:balance}
+.huge{font:400 clamp(3.25rem,12vw,9.5rem)/.92 var(--serif);letter-spacing:-.02em;margin:0 0 1.25rem}
+.status{margin:0;font:400 .8125rem/1.45 var(--sans)}
+/* when no image is present, the category words carry the first beat */
+.cats{display:none;position:absolute;z-index:1;right:var(--pad);top:50%;transform:translateY(-50%);margin:0;text-align:right;
+  font:italic 400 clamp(2rem,6vw,5rem)/1.12 var(--serif);color:#55554F}
+.shot.empty ~ .cats{display:block}
+
+.fn{font:500 .75rem/1.45 var(--mono);letter-spacing:.06em;text-transform:uppercase;margin:0}
+.panel{position:absolute;inset:0;padding:clamp(4.5rem,11vh,6rem) var(--pad) clamp(6rem,14vh,7.5rem);overflow:auto;display:grid;gap:2rem 4rem;align-content:center}
+.stacked .panel{position:relative;min-height:90vh}
+@media (min-width:880px){.panel.two{grid-template-columns:1fr 1.1fr;align-items:center}}
+.panel h2{font:400 clamp(1.6rem,3.2vw,2.5rem)/1.15 var(--serif);margin:0 0 1.25rem;letter-spacing:-.01em;text-wrap:balance}
+.bigzh{font:400 clamp(2rem,5.4vw,4.25rem)/1.25 var(--serif);letter-spacing:.03em;margin:0 0 1rem;text-wrap:balance}
+.gloss{font:italic 400 clamp(1.15rem,2vw,1.5rem)/1.35 var(--serif);margin:0 0 1rem}
+.fnl{margin:0;display:grid;gap:1rem}
+.fnl div{display:grid;gap:.2rem;border-top:1px solid var(--rule);padding-top:.7rem}
+.fnl dt{font:500 .72rem/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.fnl dd{margin:0;font-size:.975rem;line-height:1.5}
+.jointfig{margin:0}
+.joint{display:block;width:100%;max-width:28rem;height:auto}
+.joint .jf{fill:#DCDCD7;stroke:#1A1A1A;stroke-width:1.5}
+.joint .jt{font:500 12px var(--sans);fill:#1A1A1A}
+.joint .jl{stroke:#1A1A1A;stroke-width:1;stroke-dasharray:3 3;fill:none}
+.joint .ja{stroke:#1A1A1A;stroke-width:1.2;fill:none}
+.jointfig figcaption{margin-top:.6rem;font-size:.85rem;color:var(--soft);max-width:28rem}
+
+/* beat 5: the same scene read two ways */
+.seg2{position:absolute;z-index:5;left:var(--pad);top:4.25rem;display:inline-flex;border:1px solid currentColor}
+.seg2 button{font:500 .875rem var(--sans);padding:.55rem .95rem;background:transparent;color:inherit;border:0;cursor:pointer}
+.seg2 button+button{border-left:1px solid currentColor}
+.seg2 button[aria-pressed="true"]{background:var(--on-dark);color:var(--dark)}
+.marks{position:absolute;z-index:3;right:var(--pad);top:clamp(6rem,17vh,8.5rem);display:grid;gap:.5rem;justify-items:end}
+.marks span{background:var(--paper);color:var(--ink);padding:.5rem .75rem;font:500 .72rem/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.js .beat[data-view="a"] .view-b,.js .beat[data-view="b"] .view-a{display:none}
+
+.top{position:absolute;z-index:6;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1.1rem var(--pad);font-size:.875rem}
+.top a{text-decoration:underline;text-underline-offset:3px}
+.ctrl{position:absolute;z-index:6;left:var(--pad);right:var(--pad);bottom:clamp(1.1rem,3.5vh,2rem);display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.pips{display:flex;gap:.5rem;align-items:center}
+.pips i{display:block;width:.55rem;height:.55rem;border-radius:50%;border:1px solid currentColor}
+.pips i.on{background:currentColor}
+.btns{display:flex;gap:.9rem;align-items:center}
+.btn{font:500 .95rem var(--sans);padding:.78rem 1.3rem;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer;border-radius:2px}
+.btn.primary{background:var(--on-dark);color:var(--dark);border-color:var(--on-dark)}
+.stage.is-light .btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.quiet{border:0;padding:.78rem .4rem;text-decoration:underline;text-underline-offset:3px}
+.btn[disabled]{opacity:.35;cursor:default}
+.stage.is-light .top,.stage.is-light .ctrl{color:var(--ink)}
+
+/* the hinge between the opening and the case study */
+.hinge{background:var(--paper);padding:clamp(4.5rem,13vh,8.5rem) var(--pad)}
+.hinge-in{max-width:76rem;margin:0 auto}
+.reveal{display:grid;gap:1.6rem;justify-items:start}
+.reveal .brand{font:400 clamp(2.5rem,7vw,5rem)/1 var(--serif);letter-spacing:-.015em;margin:0}
+.reveal .brand em{display:block}
+.pairbox{display:grid;grid-template-columns:1fr;gap:.9rem;width:min(44rem,100%);align-items:stretch}
+@media (min-width:700px){.pairbox{grid-template-columns:1fr auto 1fr}}
+.pairbox .side{border:1px solid var(--ink);padding:1rem 1.1rem;display:grid;gap:.3rem;align-content:start}
+.pairbox .side b{font:500 .72rem/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;font-weight:500}
+.pairbox .side span{font-size:.95rem;color:var(--soft)}
+.pairbox .mid{display:grid;align-content:center;justify-items:center;text-align:center;gap:.25rem;padding:.25rem .5rem}
+.pairbox .mid i{font:400 1.5rem/1 var(--serif);font-style:normal}
+.pairbox .mid span{font:italic 400 1rem/1.2 var(--serif);color:var(--soft)}
+.fmt{margin:0;font-size:1rem}
+.proposed{margin:0;color:var(--soft);font-size:.95rem}
+
+@media (prefers-reduced-motion:reduce){.js .beat{transition:none}}
+
+
+/* ---------- scenes: the image box is placed by script so markers sit on the right spot at any screen shape ---------- */
+.scene{position:absolute;left:0;top:0;transform-origin:50% 50%;transition:transform 1.2s cubic-bezier(.3,0,.2,1)}
+.scene img{display:block;width:100%;height:100%}
+.shot.empty .scene{display:none}
+.shot.plain::after{background:linear-gradient(to top,rgba(0,0,0,.4),rgba(0,0,0,0) 28%)}
+.shot.dim::after{background:rgba(0,0,0,.58)}
+.ailabel.l{right:auto;left:var(--pad);text-align:left;max-width:22rem}
+
+/* push-in from the street through the doorway */
+.js .beat.pushout{opacity:0;visibility:visible;transition:opacity .6s ease .55s,visibility 0s}
+.js .beat.pushout .scene{transform:scale(2.7);transform-origin:76% 64%;transition:transform 1.25s cubic-bezier(.55,0,.75,.35)}
+.js .beat.pushout .cap,.js .beat.pushout .cats,.js .beat.pushout .ailabel{opacity:0;transition:opacity .3s ease}
+.js .beat.pushin{transition:opacity .6s ease .5s,visibility .6s}
+.js .beat.pushin .scene{transform:scale(1.16);transition:none}
+
+/* markers: quiet static rings, real buttons */
+.mk{position:absolute;width:2.75rem;height:2.75rem;margin:-1.375rem 0 0 -1.375rem;padding:0;background:none;border:0;cursor:pointer;color:#fff}
+.mk::before{content:"";position:absolute;left:50%;top:50%;width:1.4rem;height:1.4rem;margin:-.7rem 0 0 -.7rem;border:1.5px solid currentColor;border-radius:50%;background:rgba(0,0,0,.28)}
+.mk::after{content:"";position:absolute;left:50%;top:50%;width:.4rem;height:.4rem;margin:-.2rem 0 0 -.2rem;border-radius:50%;background:currentColor}
+.mk:hover::before{background:rgba(0,0,0,.5)}
+.mk[aria-pressed="true"]::before{background:#fff}
+.mk[aria-pressed="true"]::after{background:var(--dark)}
+
+/* the note drawer */
+.drawer{position:absolute;z-index:4;right:var(--pad);bottom:clamp(5.5rem,13vh,7rem);width:min(22rem,calc(100vw - 2*var(--pad)));
+  background:var(--paper);color:var(--ink);padding:1rem 1.15rem 1.1rem}
+.drawer .card p{margin:0}
+.drawer .card .t{font:500 .72rem/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin-bottom:.4rem}
+.drawer .card .q{font:400 1.3rem/1.3 var(--serif);margin-bottom:.55rem}
+.drawer .card .s{font-size:.875rem;line-height:1.5;color:var(--soft);margin-bottom:.7rem}
+.drawer .card .s a{color:var(--ink)}
+.drawer .x{font:500 .85rem var(--sans);background:none;border:0;padding:0;margin-left:.9rem;text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:inherit}
+.drawer .btn.sm{padding:.55rem .95rem;font-size:.875rem}
+.drawer .objl{display:none;gap:.9rem;flex-wrap:wrap}
+.shot.empty ~ .drawer .objl{display:flex}
+.drawer .objl button{font:500 .85rem var(--sans);background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:inherit}
+
+/* beat 3 */
+.qcard{position:absolute;z-index:3;left:var(--pad);top:clamp(4.6rem,13vh,6rem);width:min(27rem,calc(100vw - 2*var(--pad)));
+  background:var(--paper);color:var(--ink);padding:1.1rem 1.25rem;display:grid;gap:.5rem}
+.qcard p{margin:0}
+.qcard .zh{font:400 clamp(1.15rem,2vw,1.5rem)/1.4 var(--serif);letter-spacing:.03em}
+.qcard .gl{font:italic 400 1.05rem/1.4 var(--serif)}
+.qcard .s{font-size:.85rem;line-height:1.5;color:var(--soft)}
+
+/* beat 5 labels: restrained, no business names */
+.lab{position:absolute;display:flex;align-items:center;gap:.5rem;transform:translateY(-50%);white-space:nowrap;
+  background:var(--paper);color:var(--ink);padding:.35rem .6rem .35rem .5rem;font:400 .8125rem/1.2 var(--sans);margin-left:-.35rem}
+.lab i{display:block;width:.5rem;height:.5rem;border-radius:50%;background:var(--ink);flex:none}
+.lab b{font-weight:600}
+.seg2 button[aria-pressed="true"]{background:var(--on-dark);color:var(--dark)}
+
+@media (max-width:759px){
+  .qcard{width:calc(100vw - 2*var(--pad));top:6.6rem}
+  .qcard .s{display:none}
+  .qcard .s:first-of-type{display:block}
+  .huge{font-size:clamp(3rem,16vw,5rem)}
+  .drawer{left:var(--pad);right:var(--pad);width:auto;bottom:5.25rem}
+  .ailabel{left:var(--pad);right:var(--pad);top:3.4rem;bottom:auto;max-width:none;text-align:left}
+  .ailabel.l,.ailabel.u{top:calc(4.5rem + 56.3vw + .6rem)}
+  .lab{font-size:.7rem;padding:.25rem .45rem .25rem .4rem}
+  .lab span{display:none}
+  .seg2{flex-direction:column;top:calc(4.5rem + 56.3vw + 3.6rem)}
+}
+
+/* markers: a tiny dot; a ring only on hover or focus */
+.mk::before{opacity:0;transition:opacity .2s ease}
+.mk::after{width:.5rem;height:.5rem;margin:-.25rem 0 0 -.25rem;box-shadow:0 0 0 1.5px rgba(0,0,0,.45)}
+.mk:hover::before,.mk:focus-visible::before{opacity:1}
+.mk[aria-pressed="true"]::before{opacity:1}
+.mk[aria-pressed="true"]::after{box-shadow:none}
+
+/* the note: object label, observation, question, pairing direction */
+.drawer .card .t{margin-bottom:.45rem}
+.drawer .card .t.pd{margin:.7rem 0 .6rem}
+.drawer .card .o{font:italic 400 1rem/1.4 var(--serif);color:var(--soft);margin-bottom:.4rem}
+.drawer .card .q{margin-bottom:.2rem}
+.drawer .x{margin-left:0}
+.drawer .btn.sm+.x{margin-left:.9rem}
+.drawer.is-idle{background:transparent;color:var(--on-dark);padding:0}
+.drawer.is-idle .card .q{font:italic 400 1.2rem/1.3 var(--serif);margin:0;text-shadow:0 1px 10px rgba(0,0,0,.7)}
+
+
+/* ---------- case study ---------- */
+.sec{max-width:76rem;margin:0 auto;padding:clamp(6rem,17vh,11rem) var(--pad) 0}
+.sec.first{padding-top:clamp(5rem,15vh,9rem)}
+h2.pair{font:400 clamp(1.9rem,4.4vw,3.5rem)/1.1 var(--serif);letter-spacing:-.012em;margin:0 0 clamp(2rem,5vh,3.25rem);max-width:17em}
+h2.pair .turn{display:block;font-style:italic}
+.sec h3{font:500 clamp(1.3rem,2.1vw,1.65rem)/1.2 var(--serif);margin:clamp(3rem,8vh,4.75rem) 0 1rem}
+.prose{max-width:37rem}
+.prose p{margin:0 0 1.15rem}
+.prose ul{margin:0 0 1.15rem;padding-left:1.15rem}
+.prose li{margin:.5rem 0}
+.soft{color:var(--soft)}
+.small{font-size:.9rem;color:var(--soft)}
+.flow{display:flex;flex-wrap:wrap;gap:.5rem .75rem;align-items:center;margin:2rem 0 2.25rem;font:500 .78rem/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.flow span.s{border:1px solid var(--ink);padding:.5rem .7rem}
+.flow span.a{color:var(--soft)}
+.rule3{font:400 clamp(1.4rem,2.6vw,2rem)/1.3 var(--serif);margin:2rem 0 1.25rem}
+.rule3 span{display:block}
+
+.card{border:1px solid var(--ink);padding:clamp(1.1rem,2.4vw,1.75rem);max-width:56rem;margin:2.25rem 0}
+.card .fnl{grid-template-columns:1fr}
+@media (min-width:760px){.card .fnl div{grid-template-columns:9.5rem 1fr;gap:1.25rem}}
+.qline{margin:3rem 0 1rem;font:400 clamp(2.5rem,7vw,5.25rem)/.98 var(--serif);letter-spacing:-.02em}
+.qline em{display:block;font-size:.36em;margin-top:.8rem;letter-spacing:0;line-height:1.25}
+
+.minis{display:grid;gap:1.25rem;grid-template-columns:1fr;max-width:60rem;margin:2rem 0}
+@media (min-width:860px){.minis{grid-template-columns:repeat(3,1fr)}}
+.mini{border:1px solid var(--rule);padding:1.1rem;display:grid;gap:.6rem;align-content:start}
+.mini .pb{display:grid;gap:.15rem}
+.mini .pb b{font:500 .72rem/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;font-weight:500;color:var(--soft)}
+.mini .q{font:italic 400 1.15rem/1.35 var(--serif);margin:.3rem 0 0}
+
+.tablewrap{overflow-x:auto;margin:1.5rem 0;max-width:62rem}
+table{border-collapse:collapse;width:100%;min-width:34rem;font-size:.95rem}
+th,td{text-align:left;vertical-align:top;padding:.75rem 1.5rem .75rem 0;border-bottom:1px solid var(--rule)}
+th{font-weight:600;color:var(--soft);font-size:.875rem}
+caption{text-align:left;font:500 .72rem/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--soft);padding:0 0 .6rem}
+
+/* design-decision annotations */
+details.dd{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin:2.25rem 0;max-width:46rem}
+.ddlist details.dd{margin:0;border-top:0}
+.ddlist details.dd:first-of-type{border-top:1px solid var(--ink)}
+details.dd summary{list-style:none;cursor:pointer;padding:1rem 0;display:flex;justify-content:space-between;gap:1rem;font:500 .78rem/1.35 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+details.dd summary::-webkit-details-marker{display:none}
+details.dd summary::after{content:"+";font-size:1.1rem;line-height:1}
+details.dd[open] summary::after{content:"\2212"}
+.dd-body{padding:.2rem 0 1.6rem}
+.dd-body dl{margin:0;display:grid;gap:1.2rem}
+.dd-row{display:grid;grid-template-columns:1fr;gap:.3rem}
+@media (min-width:640px){.dd-row{grid-template-columns:6.5rem 1fr;gap:1.25rem}}
+.dd-row dt{font:500 .72rem/1.6 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.dd-row dd{margin:0;font-size:.975rem;line-height:1.6}
+.dd-row ul{margin:.3rem 0 .9rem;padding-left:1.1rem}
+.dd-row li{margin:.45rem 0}
+.dd-row p{margin:.3rem 0 .9rem}
+.dd-row p.sub{font:500 .72rem/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin:.1rem 0 .2rem}
+.toggle-all{margin:0 0 1.25rem}
+.toggle-all button{font:500 .875rem var(--sans);background:none;border:0;padding:0;margin-right:1.25rem;text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:inherit}
+.stage details.dd{border-color:var(--ink);margin:.4rem 0 0;max-width:36rem}
+.stage details.dd .dd-body{font-size:.95rem}
+
+.bullets{margin:0 0 1.15rem;padding-left:1.15rem;max-width:40rem}
+.bullets li{margin:.5rem 0}
+.hyp{max-width:42rem;margin:1.25rem 0}
+.hyp li{margin:.55rem 0}
+.hyp b{font:500 .78rem var(--mono);margin-right:.35rem}
+.pull{font:400 clamp(1.15rem,2vw,1.4rem)/1.5 var(--serif);max-width:36rem;margin:0 0 1.5rem}
+
+.sources{max-width:56rem}
+.sources h3{margin-top:2.5rem}
+.sources ol{padding-left:1.4rem;margin:.75rem 0 1.5rem}
+.sources li{margin:.55rem 0;font-size:.95rem;color:var(--soft);overflow-wrap:anywhere}
+.sources li a{color:var(--ink)}
+footer{max-width:76rem;margin:0 auto;padding:clamp(4rem,10vh,6rem) var(--pad) 4rem;font-size:.9rem;color:var(--soft)}
+
+@media (prefers-reduced-motion:reduce){.js .frame{transition:none}}
+</style>
+</head>
+<body>
+<h1 class="sr">Tainan Pairings: look closer</h1>
+
+<section class="stage" id="stage" aria-label="Opening: from a temple street to a question">
+  <div class="top">
+    <span>Tainan Pairings, pilot concept (draft, build C)</span>
+    <a href="#hinge">Skip the opening</a>
+  </div>
+  <p class="sr" id="live" aria-live="polite"></p>
+
+  <!-- 1 SEE -->
+  <article class="beat on" data-title="See: you have two days in Tainan" aria-hidden="false">
+    <div class="shot">
+      <div class="scene" data-fx=".72" data-fy=".5">
+        <img src="images/ai-01-temple.jpg" data-file="ai-01-temple.jpg" alt="A temple on a city street, seen from across the road (illustration)" onload="aiCheck(this)" onerror="imgFail(this)">
+      </div>
+      <div class="ph"><p class="phk">Guide: images/ai-01-temple.jpg</p><p>Street view with a temple in it, plain overcast light, no readable lettering.</p></div>
+    </div>
+    <p class="ailabel">AI-generated illustration of a generic temple street. Not documentary evidence.</p>
+    <p class="cats" aria-hidden="true">Food.<br>Temples.<br>History.<br>Culture.</p>
+    <div class="cap">
+      <p class="prompt">You have two days in Tainan.<em>What’s worth getting closer to?</em></p>
+    </div>
+  </article>
+
+  <!-- 2 COME CLOSER -->
+  <article class="beat" data-title="Come closer: inside the temple" aria-hidden="true">
+    <div class="shot plain">
+      <div class="scene" data-fx=".5" data-fy=".5" data-contain="1">
+        <img src="images/ai-02-interior.jpg" data-file="ai-02-interior.jpg" alt="Inside a temple: an altar with a robed deity, an incense burner, and a palanquin on a stand (illustration)" onload="aiCheck(this)" onerror="imgFail(this)">
+        <button class="mk" type="button" data-obj="robe" style="left:19.7%;top:38%" aria-label="Deity robe: read a note" aria-pressed="false"></button>
+        <button class="mk" type="button" data-obj="incense" style="left:30%;top:60%" aria-label="Incense: read a note" aria-pressed="false"></button>
+        <button class="mk" type="button" data-obj="palanquin" style="left:76.5%;top:46%" aria-label="Palanquin: read a note" aria-pressed="false"></button>
+      </div>
+      <div class="ph"><p class="phk">Guide: images/ai-02-interior.jpg</p><p>Temple interior with a robed deity, an incense burner and a palanquin on a stand. None spotlit. No readable lettering.</p></div>
+    </div>
+    <p class="ailabel l">AI-generated illustration of a generic temple interior. Not documentary evidence. Not a specific place or deity.</p>
+    <aside class="drawer is-idle" id="drawer" aria-label="Notes on the objects">
+      <div class="card" data-card="idle">
+        <p class="q">Look around.</p>
+        <p class="objl"><button type="button" data-obj="robe">Deity robe</button><button type="button" data-obj="incense">Incense</button><button type="button" data-obj="palanquin">Palanquin</button></p>
+      </div>
+      <div class="card" data-card="robe" hidden>
+        <p class="t">Object / <span lang="zh-Hant">神衣</span></p>
+        <p class="o">A deity has a wardrobe.</p>
+        <p class="q">Who decides what a god wears?</p>
+        <p class="t pd">Pairing direction / Embroidery</p>
+        <button class="x" type="button">Close ×</button>
+      </div>
+      <div class="card" data-card="incense" hidden>
+        <p class="t">Object / <span lang="zh-Hant">香</span></p>
+        <p class="o">Not all incense is made the same way.</p>
+        <p class="q">What changes when the recipe, material or method changes?</p>
+        <p class="t pd">Pairing direction / Incense</p>
+        <button class="x" type="button">Close ×</button>
+      </div>
+      <div class="card" data-card="palanquin" hidden>
+        <p class="t">Object / <span lang="zh-Hant">神轎</span></p>
+        <p class="o">It may look decorative first.</p>
+        <p class="q">Look at how it is joined.</p>
+        <button class="btn primary sm" type="button" data-go="2">Continue →</button>
+        <button class="x" type="button">Close ×</button>
+      </div>
+    </aside>
+  </article>
+
+  <!-- 3 NO NAILS -->
+  <article class="beat" data-title="No nails. So what holds this together?" aria-hidden="true">
+    <div class="shot dim">
+      <div class="scene" data-fx=".77" data-fy=".47" data-ax=".74" data-ay=".5" data-zoom="1.9">
+        <img src="images/ai-02-interior.jpg" data-file="ai-02-interior.jpg" alt="" onload="aiCheck(this)" onerror="imgFail(this)">
+      </div>
+    </div>
+    <p class="ailabel">AI-generated illustration of a generic temple interior. Not documentary evidence.</p>
+        <div class="cap" style="bottom:clamp(6rem,17vh,9rem)">
+      <p class="huge">No nails.</p>
+      <p class="lead">So what holds this together?</p>
+    </div>
+  </article>
+
+  <!-- 4 UNDERSTAND -->
+  <article class="beat light" data-light="1" data-title="Understand: the construction logic" aria-hidden="true">
+    <div class="panel two">
+      <div>
+        <h2>The answer isn’t only joinery.</h2>
+        <figure class="jointfig">
+          <svg class="joint" viewBox="0 0 480 370" role="img" aria-label="A schematic section through a mortise-and-tenon joint. Above, a post with a pocket and a rail with a projecting tongue, apart. Below, the tongue seated in the pocket.">
+            <defs><marker id="arr" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1A1A1A"/></marker></defs>
+            <g>
+              <path class="jf" d="M30,20 H110 V60 H70 V100 H110 V140 H30 Z"/>
+              <rect class="jf" x="210" y="45" width="150" height="70"/>
+              <rect class="jf" x="170" y="60" width="40" height="40"/>
+              <path class="ja" d="M164,80 H120" marker-end="url(#arr)"/>
+              <path class="jl" d="M90,160 V102"/><text class="jt" x="52" y="176">Mortise</text>
+              <path class="jl" d="M190,160 V102"/><text class="jt" x="162" y="176">Tenon</text>
+              <text class="jt" x="378" y="84">Apart</text>
+            </g>
+            <g transform="translate(0,190)">
+              <path class="jf" d="M30,20 H110 V60 H70 V100 H110 V140 H30 Z"/>
+              <rect class="jf" x="110" y="45" width="150" height="70"/>
+              <rect class="jf" x="70" y="60" width="40" height="40"/>
+              <path d="M70,60 H110 M70,100 H110" stroke="#1A1A1A" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+              <text class="jt" x="280" y="84">Together</text>
+            </g>
+          </svg>
+          <figcaption>A generic mortise-and-tenon joint, in section. Schematic. Not a drawing of <span lang="zh-Hant">永川大轎</span>’s work.</figcaption>
+        </figure>
+      </div>
+      <dl class="fnl">
+        <div><dt>Maker</dt><dd><span lang="zh-Hant">永川大轎</span>. An illustrative example. Not a pilot partner. Not contacted. Older sources place the workshop on Shennong Street, in the old city.<sup class="refs"><a href="#s5" aria-label="Source S5">S5</a></sup> Since 2022 it has been in Annan District.<sup class="refs"><a href="#s4" aria-label="Source S4">S4</a></sup></dd></div>
+        <div><dt>What the sources say</dt><dd><span lang="zh-Hant">全程採用榫卯技法，不使用任何釘子</span>: mortise-and-tenon throughout, no nails at all (Tainan City Government tourism feature).<sup class="refs"><a href="#s4" aria-label="Source S4">S4</a></sup> The Heritage Office, the National Cultural Memory Bank and CNA say the same.<sup class="refs"><a href="#s2" aria-label="Source S2">S2</a><a href="#s3" aria-label="Source S3">S3</a><a href="#s1" aria-label="Source S1">S1</a></sup> The Memory Bank adds water-based glue, so the claim is no nails, not no glue.<sup class="refs"><a href="#s3" aria-label="Source S3">S3</a></sup></dd></div>
+        <div><dt>Construction logic</dt><dd>Wang Yan, third generation, names material selection, planing, proportion and joining as the demanding parts. The result is a low centre of gravity, which reduces damage from sway during processions.<sup class="refs"><a href="#s4" aria-label="Source S4">S4</a></sup></dd></div>
+        <div><dt>The maker’s explanation</dt><dd>Nails are quicker but work loose with use. A tenon joint is harder to make, and can be tightened again when it loosens. This is Wang Yongchuan, as reported in a travel feature.<sup class="refs"><a href="#s6" aria-label="Source S6">S6</a></sup></dd></div>
+      </dl>
+    </div>
+  </article>
+
+  <!-- 5 LOOK AGAIN -->
+  <article class="beat" data-title="Look again" data-view="a" aria-hidden="true">
+    <div class="shot plain">
+      <div class="scene" data-fx=".5" data-fy=".5" data-contain="1">
+        <img src="images/ai-02-interior.jpg" data-file="ai-02-interior.jpg" alt="" onload="aiCheck(this)" onerror="imgFail(this)">
+        <span class="lab view-b" style="left:19.7%;top:38%"><i></i><b>Robe</b><span> embroidery direction</span></span>
+        <span class="lab view-b" style="left:30%;top:60%"><i></i><b>Incense</b><span> incense direction</span></span>
+        <span class="lab view-b" style="left:76.5%;top:46%"><i></i><b>Palanquin</b><span> the worked example</span></span>
+      </div>
+    </div>
+    <p class="ailabel u">AI-generated illustration of a generic temple interior. Not documentary evidence.</p>
+    <div class="seg2" role="group" aria-label="Read the same scene two ways">
+      <button type="button" data-v="a" aria-pressed="true">If you don’t know what to look for</button>
+      <button type="button" data-v="b" aria-pressed="false">If you do</button>
+    </div>
+    <div class="cap">
+      <p class="lead view-a">A temple.</p>
+      <p class="lead view-b">The same temple: objects, practices, and the people who make them.</p>
+    </div>
+  </article>
+
+  <div class="ctrl">
+    <span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></span>
+    <span class="btns">
+      <button class="btn quiet" id="prev" type="button" disabled>Back</button>
+      <button class="btn primary" id="next" type="button">Come closer</button>
+    </span>
+  </div>
+</section>
+
+<!-- THE HINGE -->
+<section class="hinge" id="hinge">
+  <div class="hinge-in reveal">
+    <p class="brand">Tainan Pairings.<em>Look closer.</em></p>
+    <div class="pairbox">
+      <div class="side"><b>Maker</b><span>The person behind the object</span></div>
+      <div class="mid"><i>&harr;</i><span>one question</span></div>
+      <div class="side"><b>Place</b><span>What the visitor already came for</span></div>
+    </div>
+    <p class="fmt"><b>Pilot concept. Not bookable.</b></p>
+    <p class="proposed">Proposed format: paid · pre-booked · 5–7 people</p>
+    <details class="dd">
+      <summary><span>Why these constraints?</span></summary>
+      <div class="dd-body"><p style="margin:0 0 .6rem">Paid, pre-booked and small are proposed design choices, not settled facts. Each is a hypothesis with its own evidence and its own open test.</p><p style="margin:0"><a href="#decisions">Read the four design decisions</a></p></div>
+    </details>
+  </div>
+</section>
+
+<main>
+
+<!-- 1. THE GAP -->
+<section class="sec first" id="gap">
+  <h2 class="pair"><span>Tainan knows what it’s proud of.</span><span class="turn">Does anyone outside it read it?</span></h2>
+  <div class="prose">
+    <p>Pride is made of context that insiders carry without noticing. Legibility is what survives when that context is taken away.</p>
+    <p>Food, temples, history, culture. Those words tell a visitor what exists. They don’t say why this version is worth their limited time. From a year in Taiwan, my own observation, not a survey: ask people what to see in Tainan and the answer is usually food and temples.</p>
+    <p>So the question isn’t how to persuade visitors that heritage matters. It’s how to make something locally meaningful specific enough that the right visitor can decide whether it’s worth their attention. Not everyone has to care.</p>
+  </div>
+</section>
+
+<!-- 2. THE PROPOSITION -->
+<section class="sec" id="proposition">
+  <h2 class="pair"><span>Begin with what the visitor already recognizes.</span><span class="turn">End somewhere they couldn’t have found.</span></h2>
+  <div class="prose">
+    <p>Tainan Pairings is a proposed small, paid, pre-booked cultural experience. It’s a pilot concept. It doesn’t exist yet and can’t be booked.</p>
+  </div>
+  <div class="flow" aria-label="Temple, object, question, maker, context">
+    <span class="s">Temple</span><span class="a">&rarr;</span><span class="s">Object</span><span class="a">&rarr;</span><span class="s">Question</span><span class="a">&rarr;</span><span class="s">Maker</span><span class="a">&rarr;</span><span class="s">Context</span>
+  </div>
+  <div class="prose">
+    <p>Instead of asking someone to care about traditional craftsmanship, a pairing starts with the temple in front of them. The object raises a question. The maker’s workshop becomes relevant because it answers something the visitor is already curious about.</p>
+  </div>
+  <p class="rule3"><span>One object.</span><span>One question.</span><span>One relationship.</span></p>
+  <div class="prose">
+    <p>The test is simple. Can the visitor later explain, in their own words, why the thing they met matters?</p>
+  </div>
+  <details class="dd">
+  <summary><span>Design decision 03 / Why one question?</span></summary>
+  <div class="dd-body"><dl>
+    <div class="dd-row"><dt>Decision</dt><dd>Build each pairing around one question that comes from encountering the object.</dd></div>
+    <div class="dd-row"><dt>Reason</dt><dd>A broad category such as “traditional craft” gives a visitor no particular reason to stop. A specific question gives them a threshold: something they became curious about at the object, which the maker can then answer. The aim is not twenty facts. It is that the visitor can later explain, in their own words, why the thing matters.</dd></div>
+    <div class="dd-row"><dt>Evidence</dt><dd><p class="sub">Published</p><ul><li>No research in the evidence set supports this directly. The nearest comparator is Japan’s tourism agency, which presents “gastronomy tourism” as food tied to local ingredients, customs and traditions that differ from region to region, rather than food in general.<sup class="refs"><a href="#r12" aria-label="Source R12">R12</a></sup> That shows a category-to-specificity approach exists. It does not show it works.</li></ul><p class="sub">Project inference</p><p>This is hypothesis H3: a specific question may create more useful curiosity than a broad category.</p></dd></div>
+    <div class="dd-row"><dt>Test</dt><dd>Whether visitors can explain the object’s significance afterwards in their own words, and which questions open curiosity and which do not.</dd></div>
+  </dl></div>
+</details>
+</section>
+
+<!-- 3. PAIRING 01 -->
+<section class="sec" id="pairing-01">
+  <h2 class="pair"><span>The object is ornate.</span><span class="turn">The question is how it holds together.</span></h2>
+  <div class="prose">
+    <p>The worked example is <span lang="zh-Hant">永川大轎</span> ↔ <span lang="zh-Hant">金華府</span>. It’s illustrative: it shows how a pairing works. <span lang="zh-Hant">永川大轎</span> is not a pilot partner, and nobody there has been contacted.</p>
+    <p>It shows the logic because the thing a visitor sees, an ornate temple palanquin, rests on production knowledge that’s easy to miss.</p>
+  </div>
+
+  <div class="card">
+    <dl class="fnl">
+      <div><dt>Object</dt><dd>Palanquin (<span lang="zh-Hant">神轎</span>), the kind of object a visitor sees at a temple.</dd></div>
+      <div><dt>Maker</dt><dd><span lang="zh-Hant">永川大轎</span>. Wang Yongchuan (1932–2020) learned carpentry from his father and developed his own palanquin-making technique. The workshop now runs across three generations.<sup class="refs"><a href="#s2" aria-label="Source S2">S2</a><a href="#s4" aria-label="Source S4">S4</a><a href="#s5" aria-label="Source S5">S5</a></sup></dd></div>
+      <div><dt>Technique</dt><dd>Mortise-and-tenon joinery, with no nails.<sup class="refs"><a href="#s1" aria-label="Source S1">S1</a><a href="#s2" aria-label="Source S2">S2</a><a href="#s4" aria-label="Source S4">S4</a></sup> The National Cultural Memory Bank adds that the tenoned joints are then coated with water-based glue.<sup class="refs"><a href="#s3" aria-label="Source S3">S3</a></sup> So the claim is “no nails”, not “no glue”.</dd></div>
+      <div><dt>Reported scale</dt><dd>Reported to have made nearly seven in ten of the old city’s temple palanquins.<sup class="refs"><a href="#s2" aria-label="Source S2">S2</a></sup> That is a reported figure, not a measured one.</dd></div>
+      <div><dt>Location</dt><dd>The workshop moved to Annan District in 2022, with a display area and planned experience activities.<sup class="refs"><a href="#s4" aria-label="Source S4">S4</a></sup> Older sources place it on Shennong Street in the old city.<sup class="refs"><a href="#s5" aria-label="Source S5">S5</a></sup> Whether any visitor access remains there is unconfirmed.</dd></div>
+      <div><dt>Pair</dt><dd><span lang="zh-Hant">金華府</span>, as an illustrative temple. This page makes no claim that the temple uses the maker’s palanquins.</dd></div>
+      <div><dt>Distance</dt><dd>Not established. How a visitor would get from the temple to the maker is an open question.</dd></div>
+      <div><dt>Founding year</dt><dd>Sources disagree (1952, 1955 and 1967 all appear), so none is given.<sup class="refs"><a href="#s1" aria-label="Source S1">S1</a><a href="#s3" aria-label="Source S3">S3</a><a href="#s5" aria-label="Source S5">S5</a></sup></dd></div>
+    </dl>
+  </div>
+
+  <p class="qline">No nails.<em>So what holds this together?</em></p>
+  <div class="prose">
+    <p>The answer isn’t only joinery. Wang Yan, the third generation, points to material selection, planing, proportion and joining, and to a low centre of gravity that reduces damage from sway in processions.<sup class="refs"><a href="#s4" aria-label="Source S4">S4</a></sup> Wang Yongchuan’s own explanation, as reported in a travel feature, is that nails are quicker but work loose, while a tenon joint is harder to make and can be tightened again when it loosens.<sup class="refs"><a href="#s6" aria-label="Source S6">S6</a></sup></p>
+    <p>That is the legibility change the opening tries to show. An ornate religious object gets one detail that gives the visitor a reason to see how it was made.</p>
+    <p>A visit would be arranged with the maker in advance. Whether they would host visitors at all, and on what terms, is unknown.</p>
+  </div>
+  <details class="dd">
+  <summary><span>Design decision 04 / Why pre-booked?</span></summary>
+  <div class="dd-body"><dl>
+    <div class="dd-row"><dt>Decision</dt><dd>Visits are booked ahead by small groups. There is no drop-in.</dd></div>
+    <div class="dd-row"><dt>Reason</dt><dd>These are working businesses, not attractions. A visit needs the maker’s agreement and a number of people the workshop can handle. Booking ahead also asks visitors to commit time and planning.</dd></div>
+    <div class="dd-row"><dt>Evidence</dt><dd><p class="sub">Published</p><ul><li>No research in the evidence set addresses pre-booking directly. The closest is adjacent: the Amsterdam–The Hague study describes redistribution as being about linking products and sharing benefits,<sup class="refs"><a href="#r6" aria-label="Source R6">R6</a></sup> and the Kyoto work treats readiness to receive visitors as something to assess.<sup class="refs"><a href="#r8" aria-label="Source R8">R8</a></sup></li></ul><p class="sub">Project inference</p><p>Pre-booking, group limits, practitioner agreement and pricing together act as demand management for the host (hypothesis H6).</p></dd></div>
+    <div class="dd-row"><dt>Test</dt><dd>Whether booking ahead brings in the right visitors or puts them off, and whether hosts found the volume manageable.</dd></div>
+  </dl></div>
+</details>
+</section>
+
+<!-- 4. THE SYSTEM -->
+<section class="sec" id="system">
+  <h2 class="pair"><span>Same method.</span><span class="turn">Different object.</span></h2>
+  <div class="prose">
+    <p>The method works wherever a visible place depends on a less visible trade. These three are lighter illustrative directions, not developed pairings. None has been contacted, and details such as addresses and opening days are unverified and left out.</p>
+  </div>
+  <div class="minis">
+    <div class="mini">
+      <div class="pb"><b>Maker</b><span lang="zh-Hant">府城光彩繡莊</span></div>
+      <div class="pb"><b>Place</b><span>A temple and its deity robes</span></div>
+      <p class="q">Who decides what a god wears?</p>
+    </div>
+    <div class="mini">
+      <div class="pb"><b>Maker</b><span lang="zh-Hant">泉興榻榻米</span></div>
+      <div class="pb"><b>Place</b><span>Japanese-period domestic architecture</span></div>
+      <p class="q">What did Taiwan keep from Japanese domestic life, and why this?</p>
+    </div>
+    <div class="mini">
+      <div class="pb"><b>Maker</b><span lang="zh-Hant">吳萬春香舖</span></div>
+      <div class="pb"><b>Place</b><span>Temple and incense practice</span></div>
+      <p class="q">Question not yet set.</p>
+    </div>
+  </div>
+  <div class="prose">
+    <p>Different pairings could run at different frequencies, capacities and price points, depending on the host.</p>
+  </div>
+  <details class="dd">
+  <summary><span>Design decision 02 / Why 5–7?</span></summary>
+  <div class="dd-body"><dl>
+    <div class="dd-row"><dt>Decision</dt><dd>Limit each group to about five to seven people.</dd></div>
+    <div class="dd-row"><dt>Reason</dt><dd>A working workshop can only reasonably receive so many people at once, so the group is sized to what the host and place can receive, not to maximum volume. In a small group everyone can hear and ask, and visitors can talk to each other as well as to the guide. “Small” is not claimed to be sustainable on its own.</dd></div>
+    <div class="dd-row"><dt>Evidence</dt><dd><p class="sub">Published</p><ul><li>A conceptual paper sets out frameworks and a typology for how destinations develop, concentrate, diversify and link their tourism products, including niche and mass products and thematic and spatial synergies. It treats diversification, intensification and linkage as potentially important for competitiveness and sustainable development (Benur &amp; Bramwell 2015). It does not test whether spreading visitors out is sustainable.<sup class="refs"><a href="#r5" aria-label="Source R5">R5</a></sup></li><li>A study of the Amsterdam–The Hague agreement to redistribute visitors found it only moderately successful, and described redistribution as being about linking products and sharing benefits.<sup class="refs"><a href="#r6" aria-label="Source R6">R6</a></sup></li><li>Amsterdam’s 2025 neighbourhood monitoring found six neighbourhoods with carrying capacity under pressure, one more than in 2023, and the list of neighbourhoods changed. It does not show that dispersal caused the change.<sup class="refs"><a href="#r7" aria-label="Source R7">R7</a></sup></li><li>Research on alternative attractions in Kyoto combines supply, observed visitor movement, experience quality and accessibility.<sup class="refs"><a href="#r8" aria-label="Source R8">R8</a></sup></li></ul><p class="sub">Project inference</p><p>Spreading visitors out is not assumed to be sustainable. That caution comes from the two Amsterdam sources above, not from Benur and Bramwell. A local asset existing does not make it a visitor-ready product. Group limits, pre-booking and the maker’s agreement are how this pilot tries to match visitors to what a host can receive. This is hypothesis H6.</p></dd></div>
+    <div class="dd-row"><dt>Test</dt><dd>Whether five to seven suited the host, and whether the visitor volume felt appropriate to them.</dd></div>
+  </dl></div>
+</details>
+</section>
+
+<!-- 5. WHO IT'S FOR -->
+<section class="sec" id="audience">
+  <h2 class="pair"><span>Not everyone should care.</span><span class="turn">The right visitor should be able to tell.</span></h2>
+  <div class="prose">
+    <p>Demand isn’t uniform. People become curious through food, architecture, ritual, making, design or history. A proposition doesn’t need universal appeal. It needs enough specificity for the right person to recognize whether it’s for them.</p>
+    <p>Three possible audiences for a pilot, all hypotheses:</p>
+    <ul>
+      <li>Independent international visitors who have already chosen to spend time in Tainan.</li>
+      <li>Repeat visitors to Taiwan.</li>
+      <li>Foreign residents already living in Taiwan.</li>
+    </ul>
+    <p>For the last two, familiarity can create its own problem: a destination can feel completed. A more specific proposition might make something familiar unfamiliar again. That is a hypothesis to test, not an established finding.</p>
+    <p>“Two days in Tainan” describes scarce visitor time. It says nothing about when a pairing would run.</p>
+    <p class="small">Adjacent evidence: a 2025 study using mobile-phone data in Seoul, Busan and Jeju found that different international visitor groups concentrate spatially in different ways,<sup class="refs"><a href="#r9" aria-label="Source R9">R9</a></sup> which is a reason not to treat “international visitors” as one market. Its nationality-specific findings aren’t carried over to Taiwan. Japan’s tourism agency runs separate campaigns for people who have never visited Japan and for repeat visitors.<sup class="refs"><a href="#r12" aria-label="Source R12">R12</a></sup></p>
+  </div>
+</section>
+
+<!-- 6. DESIGN DECISIONS -->
+<section class="sec" id="decisions">
+  <h2 class="pair"><span>Every constraint is a decision.</span><span class="turn">Every decision is a hypothesis.</span></h2>
+  <div class="prose">
+    <p>Four choices shape the proposed product. Each is set out in four parts. The evidence is adjacent: it grounds the reasoning without proving the pilot will work. Anything beyond it is a hypothesis, and the Test line says what would need to be learned.</p>
+  </div>
+  <p class="toggle-all"><button type="button" id="open-all">Open all</button><button type="button" id="close-all">Close all</button></p>
+  <div class="ddlist">
+    <details class="dd" id="dd01">
+  <summary><span>Design decision 01 / Why paid?</span></summary>
+  <div class="dd-body"><dl>
+    <div class="dd-row"><dt>Decision</dt><dd>Propose the pilot as a paid experience instead of defaulting to a free one. The product does not exist; this is a decision about the concept.</dd></div>
+    <div class="dd-row"><dt>Reason</dt><dd>Free access is good at drawing people in, but participation is not the only question here. The pilot also asks whether the proposition is valuable enough for someone to commit money, time, planning and attention to it. The people whose work forms part of the experience also need to be paid for it.</dd></div>
+    <div class="dd-row"><dt>Evidence</dt><dd><p class="sub">Published</p><ul><li>Zero is not simply another low price: consumers can disproportionately favour free options (Shampanier, Mazar &amp; Ariely).<sup class="refs"><a href="#r4" aria-label="Source R4">R4</a></sup></li><li>In an online choice experiment with 536 valid responses from people in China, willingness to pay differed by interpretive attribute. Distinctive local culture raised it; long service length and interactivity lowered it. Four groups of tourists showed different preferences (Zhao &amp; Chan 2023).<sup class="refs"><a href="#r2" aria-label="Source R2">R2</a></sup></li><li>At one World Heritage site in China, interpersonal interpretation outperformed non-personal interpretation in delivering heritage values (Weng, Liang &amp; Bao 2020). It measured perceived heritage value, not willingness to pay.<sup class="refs"><a href="#r1" aria-label="Source R1">R1</a></sup></li><li>Willingness to pay for authenticity has been studied at Pingxi, Taiwan. No figure from it is carried over to this concept.<sup class="refs"><a href="#r3" aria-label="Source R3">R3</a></sup></li></ul><p class="sub">Project inference</p><p>Free can work for participation, but it cannot show whether the experience itself is valuable enough to commit to. Payment is used here as one observable form of commitment. It is not assumed to create value.</p></dd></div>
+    <div class="dd-row"><dt>Test</dt><dd>Whether the relevant visitors will pay for this proposition at a viable price, and how its length and how hands-on it is change that. The price itself is the host’s decision.</dd></div>
+  </dl></div>
+</details>
+    <details class="dd" id="dd02">
+  <summary><span>Design decision 02 / Why 5–7?</span></summary>
+  <div class="dd-body"><dl>
+    <div class="dd-row"><dt>Decision</dt><dd>Limit each group to about five to seven people.</dd></div>
+    <div class="dd-row"><dt>Reason</dt><dd>A working workshop can only reasonably receive so many people at once, so the group is sized to what the host and place can receive, not to maximum volume. In a small group everyone can hear and ask, and visitors can talk to each other as well as to the guide. “Small” is not claimed to be sustainable on its own.</dd></div>
+    <div class="dd-row"><dt>Evidence</dt><dd><p class="sub">Published</p><ul><li>A conceptual paper sets out frameworks and a typology for how destinations develop, concentrate, diversify and link their tourism products, including niche and mass products and thematic and spatial synergies. It treats diversification, intensification and linkage as potentially important for competitiveness and sustainable development (Benur &amp; Bramwell 2015). It does not test whether spreading visitors out is sustainable.<sup class="refs"><a href="#r5" aria-label="Source R5">R5</a></sup></li><li>A study of the Amsterdam–The Hague agreement to redistribute visitors found it only moderately successful, and described redistribution as being about linking products and sharing benefits.<sup class="refs"><a href="#r6" aria-label="Source R6">R6</a></sup></li><li>Amsterdam’s 2025 neighbourhood monitoring found six neighbourhoods with carrying capacity under pressure, one more than in 2023, and the list of neighbourhoods changed. It does not show that dispersal caused the change.<sup class="refs"><a href="#r7" aria-label="Source R7">R7</a></sup></li><li>Research on alternative attractions in Kyoto combines supply, observed visitor movement, experience quality and accessibility.<sup class="refs"><a href="#r8" aria-label="Source R8">R8</a></sup></li></ul><p class="sub">Project inference</p><p>Spreading visitors out is not assumed to be sustainable. That caution comes from the two Amsterdam sources above, not from Benur and Bramwell. A local asset existing does not make it a visitor-ready product. Group limits, pre-booking and the maker’s agreement are how this pilot tries to match visitors to what a host can receive. This is hypothesis H6.</p></dd></div>
+    <div class="dd-row"><dt>Test</dt><dd>Whether five to seven suited the host, and whether the visitor volume felt appropriate to them.</dd></div>
+  </dl></div>
+</details>
+    <details class="dd" id="dd03">
+  <summary><span>Design decision 03 / Why one question?</span></summary>
+  <div class="dd-body"><dl>
+    <div class="dd-row"><dt>Decision</dt><dd>Build each pairing around one question that comes from encountering the object.</dd></div>
+    <div class="dd-row"><dt>Reason</dt><dd>A broad category such as “traditional craft” gives a visitor no particular reason to stop. A specific question gives them a threshold: something they became curious about at the object, which the maker can then answer. The aim is not twenty facts. It is that the visitor can later explain, in their own words, why the thing matters.</dd></div>
+    <div class="dd-row"><dt>Evidence</dt><dd><p class="sub">Published</p><ul><li>No research in the evidence set supports this directly. The nearest comparator is Japan’s tourism agency, which presents “gastronomy tourism” as food tied to local ingredients, customs and traditions that differ from region to region, rather than food in general.<sup class="refs"><a href="#r12" aria-label="Source R12">R12</a></sup> That shows a category-to-specificity approach exists. It does not show it works.</li></ul><p class="sub">Project inference</p><p>This is hypothesis H3: a specific question may create more useful curiosity than a broad category.</p></dd></div>
+    <div class="dd-row"><dt>Test</dt><dd>Whether visitors can explain the object’s significance afterwards in their own words, and which questions open curiosity and which do not.</dd></div>
+  </dl></div>
+</details>
+    <details class="dd" id="dd04">
+  <summary><span>Design decision 04 / Why pre-booked?</span></summary>
+  <div class="dd-body"><dl>
+    <div class="dd-row"><dt>Decision</dt><dd>Visits are booked ahead by small groups. There is no drop-in.</dd></div>
+    <div class="dd-row"><dt>Reason</dt><dd>These are working businesses, not attractions. A visit needs the maker’s agreement and a number of people the workshop can handle. Booking ahead also asks visitors to commit time and planning.</dd></div>
+    <div class="dd-row"><dt>Evidence</dt><dd><p class="sub">Published</p><ul><li>No research in the evidence set addresses pre-booking directly. The closest is adjacent: the Amsterdam–The Hague study describes redistribution as being about linking products and sharing benefits,<sup class="refs"><a href="#r6" aria-label="Source R6">R6</a></sup> and the Kyoto work treats readiness to receive visitors as something to assess.<sup class="refs"><a href="#r8" aria-label="Source R8">R8</a></sup></li></ul><p class="sub">Project inference</p><p>Pre-booking, group limits, practitioner agreement and pricing together act as demand management for the host (hypothesis H6).</p></dd></div>
+    <div class="dd-row"><dt>Test</dt><dd>Whether booking ahead brings in the right visitors or puts them off, and whether hosts found the volume manageable.</dd></div>
+  </dl></div>
+</details>
+  </div>
+</section>
+
+<!-- 7. THE PILOT -->
+<section class="sec" id="pilot">
+  <h2 class="pair"><span>A concept needs a host.</span><span class="turn">This one doesn’t have one yet.</span></h2>
+  <div class="prose">
+    <p>Nobody has agreed to anything. The structure below shows how a real version could be built, and it would still need confirming with the Tourism Administration and Tainan’s tourism bureau. It isn’t legal advice.</p>
+    <h3 style="margin-top:2.25rem">Three workable shapes</h3>
+    <ul>
+      <li>A travel agency partner holds the licence, the contract and the money. The concept supplies the content.</li>
+      <li>A university or city host runs it as a pilot and engages a licensed guide.</li>
+      <li>The craftspeople sell their own activity directly and keep the money. The project supplies framing and connection.</li>
+    </ul>
+    <p>The proposed host is a university, with the city as a named partner. Neither has been approached. It’s written so that a university pilot works alone, with city involvement adding access and scale.</p>
+    <h3>The guide</h3>
+    <p>Foreign visitors would need to be received by a guide licensed in the relevant language. Students could take part as interpreters and hosts, not as guides for foreign visitors. This needs further confirmation with the Tourism Administration.</p>
+    <h3>Compensation</h3>
+    <p>Hosts, guides and the people who share their work would be fairly compensated and credited, and not only in financial terms. Pricing is the host’s decision, not this study’s.</p>
+  </div>
+  <details class="dd">
+  <summary><span>Design decision 01 / Why paid?</span></summary>
+  <div class="dd-body"><dl>
+    <div class="dd-row"><dt>Decision</dt><dd>Propose the pilot as a paid experience instead of defaulting to a free one. The product does not exist; this is a decision about the concept.</dd></div>
+    <div class="dd-row"><dt>Reason</dt><dd>Free access is good at drawing people in, but participation is not the only question here. The pilot also asks whether the proposition is valuable enough for someone to commit money, time, planning and attention to it. The people whose work forms part of the experience also need to be paid for it.</dd></div>
+    <div class="dd-row"><dt>Evidence</dt><dd><p class="sub">Published</p><ul><li>Zero is not simply another low price: consumers can disproportionately favour free options (Shampanier, Mazar &amp; Ariely).<sup class="refs"><a href="#r4" aria-label="Source R4">R4</a></sup></li><li>In an online choice experiment with 536 valid responses from people in China, willingness to pay differed by interpretive attribute. Distinctive local culture raised it; long service length and interactivity lowered it. Four groups of tourists showed different preferences (Zhao &amp; Chan 2023).<sup class="refs"><a href="#r2" aria-label="Source R2">R2</a></sup></li><li>At one World Heritage site in China, interpersonal interpretation outperformed non-personal interpretation in delivering heritage values (Weng, Liang &amp; Bao 2020). It measured perceived heritage value, not willingness to pay.<sup class="refs"><a href="#r1" aria-label="Source R1">R1</a></sup></li><li>Willingness to pay for authenticity has been studied at Pingxi, Taiwan. No figure from it is carried over to this concept.<sup class="refs"><a href="#r3" aria-label="Source R3">R3</a></sup></li></ul><p class="sub">Project inference</p><p>Free can work for participation, but it cannot show whether the experience itself is valuable enough to commit to. Payment is used here as one observable form of commitment. It is not assumed to create value.</p></dd></div>
+    <div class="dd-row"><dt>Test</dt><dd>Whether the relevant visitors will pay for this proposition at a viable price, and how its length and how hands-on it is change that. The price itself is the host’s decision.</dd></div>
+  </dl></div>
+</details>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Illustrative examples, not partners</caption>
+      <thead><tr><th>Who</th><th>Role in the example</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span lang="zh-Hant">永川大轎</span></td><td>Worked example of a maker</td><td>Not contacted</td></tr>
+        <tr><td><span lang="zh-Hant">金華府</span></td><td>Illustrative temple</td><td>Not contacted</td></tr>
+        <tr><td><span lang="zh-Hant">府城光彩繡莊</span>, <span lang="zh-Hant">泉興榻榻米</span>, <span lang="zh-Hant">吳萬春香舖</span></td><td>Lighter illustrative directions</td><td>Not contacted</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <caption>Roles a real version needs</caption>
+      <thead><tr><th>Who</th><th>Role</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>University host</td><td>Proposed institutional host; students as interpreters and hosts</td><td>Not approached</td></tr>
+        <tr><td>Tainan tourism bureau and cultural heritage office</td><td>Possible named partner: access, introductions, policy framing</td><td>Not approached</td></tr>
+        <tr><td>Licensed foreign-language guide</td><td>Receives foreign visitors; engaged by the host</td><td>Role defined, not recruited</td></tr>
+        <tr><td>Residents and businesses nearby</td><td>Affected by visitor flow</td><td>Affected, not necessarily partners</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small" style="max-width:36rem">The status column is the point. It shows the difference between who matters and who has said yes.</p>
+
+  <div class="prose">
+    <h3>What a real version would need to settle</h3>
+    <ul>
+      <li>Which makers would host visitors at all, on what terms, and how they are compensated.</li>
+      <li>How a visitor gets between the temple and the maker.</li>
+      <li>Whether a university would host, and whether the city would join.</li>
+      <li>The exact regulatory boundaries for a non-commercial, institution-hosted pilot.</li>
+      <li>Whether students can be credited or paid, and under what course structure.</li>
+      <li>Consent for recording practitioners, and for photographing sites that restrict it.</li>
+      <li>Which days each business is open, which may decide the route.</li>
+      <li>The ask to the host, which is deliberately still open.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 8. WHAT IT TESTS -->
+<section class="sec" id="tests">
+  <h2 class="pair"><span>Not whether they enjoyed it.</span><span class="turn">Whether they can say why it matters.</span></h2>
+  <div class="prose">
+    <p>Satisfaction, memorability, recommendation, willingness to pay, future curiosity and repeat behaviour are related but different outcomes. A five-star rating on the day can’t stand in for all of them.</p>
+    <p>A systematic review of memorable tourism experience research found the field’s theory fragmented. It recommended caution with the standard scale, attention to the limits of self-report, mixed methods, and including suppliers’ perspectives.<sup class="refs"><a href="#r10" aria-label="Source R10">R10</a></sup> That is part of why the pilot’s questions go beyond a single rating and include the maker’s and host’s experience.</p>
+    <p>Questions the pilot would ask:</p>
+    <ul>
+      <li>Did someone choose to book and pay?</li>
+      <li>What first triggered their curiosity?</li>
+      <li>What do they remember later?</li>
+      <li>Can they explain why the object or place matters?</li>
+      <li>Did the experience change what else they became curious about in Tainan?</li>
+      <li>Would they book another pairing?</li>
+      <li>What was it like for the maker or host?</li>
+      <li>Was the visitor volume right for the host?</li>
+    </ul>
+    <p class="pull">The sharpest question: did the experience close the destination, or open another question?</p>
+    <p>The hypothesis is that specificity can make a destination feel less exhaustible, by revealing distinctions inside categories visitors thought they already understood. Research has linked novelty to memorable experiences and revisit intention.<sup class="refs"><a href="#r11" aria-label="Source R11">R11</a></sup> That doesn’t show these pairings would raise repeat visits.</p>
+  </div>
+
+  <h3>The project’s own hypotheses</h3>
+  <p class="small" style="max-width:36rem">These are design hypotheses for the pilot. They are not research findings. The sources give adjacent evidence only.</p>
+  <ul class="hyp">
+    <li><b>H1</b>A locally meaningful asset can exist without being legible enough for an outsider to judge it as a tourism proposition.</li>
+    <li><b>H2</b>A familiar attraction can be an effective way into a less familiar layer of the city.</li>
+    <li><b>H3</b>A specific question may create more useful curiosity than a broad category such as “traditional craft”.</li>
+    <li><b>H4</b>Revealing distinctions inside a familiar destination may create curiosity about what else is left to discover.</li>
+    <li><b>H5</b>Some visitors may see enough value in practitioner access and interpretation to exchange money, time, planning and attention for it.</li>
+    <li><b>H6</b>Small, pre-booked products may let visitor demand be matched to the capacity of particular hosts.</li>
+    <li><b>H7</b>A portfolio of differentiated experiences may give more ways to place different visitors without turning every local asset into a mass attraction.</li>
+  </ul>
+
+  <div class="prose">
+    <h3>What this does not claim</h3>
+    <ul>
+      <li>That Taiwan tourism statistics prove demand for craft experiences.</li>
+      <li>That international tourists inherently want “authentic culture”.</li>
+      <li>That paid experiences are more valuable than free ones.</li>
+      <li>That interpretation automatically leads to purchasing.</li>
+      <li>That dispersal is automatically sustainable.</li>
+      <li>That Tainan Pairings would increase repeat visits to Taiwan.</li>
+      <li>That it solves Taiwan’s national tourism positioning.</li>
+    </ul>
+    <p>The pilot asks something narrower: can a familiar attraction become the gateway to a less legible layer of the city, and can that layer become valuable enough for an appropriate audience to spend time and money exploring it?</p>
+  </div>
+</section>
+
+<!-- 9. WHERE IT COULD GO -->
+<section class="sec" id="where-next">
+  <h2 class="pair"><span>Capacity decides the scale.</span><span class="turn">The logic travels.</span></h2>
+  <div class="prose">
+    <p>A destination needs enough different, legible experiences for different kinds of visitor demand to find an appropriate place to go, without every local asset becoming a mass attraction. A museum may receive hundreds of people. A commercial district may receive thousands. A working workshop may only reasonably receive six.</p>
+    <p class="pull">Put visitors where they have a reason to be, and where the place can actually receive them.</p>
+    <p>The pairings format is modular for that reason. Each can run at the frequency, size and price its host can support.</p>
+    <p>The pride-versus-legibility gap isn’t specific to Tainan. It exists wherever a place markets what it’s proud of rather than what reads from outside, and the pairing format is a structure that can be reused elsewhere.</p>
+  </div>
+</section>
+
+<!-- 10. ABOUT + SOURCES -->
+<section class="sec" id="about">
+  <h2 class="pair"><span>About this project</span></h2>
+  <div class="prose">
+    <p class="pull">An independent pilot concept. Any full implementation would require fair compensation and credit for everyone involved, including hosts, guides and the people who share their work, and not only in financial terms.</p>
+    <p>This is a speculative case study. It wasn’t commissioned, and nobody named in it has endorsed it or agreed to take part.</p>
+    <p>Made by Gita Gabriella, October 2026. More case studies are in the <a href="../archive.html">archive</a>, and there’s more about me on the <a href="../about.html">about page</a>.</p>
+  </div>
+
+  <div class="sources" id="sources">
+    <h3>Sources</h3>
+    <p class="small">Research entries R1 to R11 are matched to their published records. The claims attributed to them were checked against abstracts or published pages, not read in full; R3 was confirmed through a citing paper’s reference list, because the publisher’s page could not be opened. Hypotheses H1 to H7 are the project’s own.</p>
+
+    <h3 style="font-size:1.1rem">On <span lang="zh-Hant">永川大轎</span></h3>
+    <ol class="plain">
+      <li id="s1">Central News Agency (2022), reporting a Tainan City Government release on the plaque unveiling at Wang Yongchuan’s former residence. <a href="https://www.cna.com.tw/news/acul/202203240094.aspx" target="_blank" rel="noopener">cna.com.tw</a></li>
+      <li id="s2">Tainan Cultural Heritage Management Office, news item on the workshop’s display room. <a href="https://tmach-culture.tainan.gov.tw/page.asp?mainid=289E19C3-6E35-4126-91AE-D8BBAAED08A7" target="_blank" rel="noopener">tmach-culture.tainan.gov.tw</a></li>
+      <li id="s3">National Cultural Memory Bank, 永川大轎 entry. <a href="https://tcmb.culture.tw/zh-tw/detail?indexCode=Culture_Place&amp;id=298102" target="_blank" rel="noopener">tcmb.culture.tw</a></li>
+      <li id="s4">Taiwan News (2025), carrying a Tainan City Government tourism feature on 永川大轎, quoting third-generation Wang Yan. <a href="https://www.taiwannews.com.tw/zh/news/6214225" target="_blank" rel="noopener">taiwannews.com.tw</a></li>
+      <li id="s5">Central News Agency (2020), obituary of Wang Yongchuan. <a href="https://www.cna.com.tw/news/firstnews/202010120016.aspx" target="_blank" rel="noopener">cna.com.tw</a></li>
+      <li id="s6">SETN Travel, feature on 永川大轎 (undated), quoting Wang Yongchuan on nails and tenon joints. <a href="https://travel.setn.com/News/829529" target="_blank" rel="noopener">travel.setn.com</a></li>
+    </ol>
+
+    <h3 style="font-size:1.1rem">Research</h3>
+    <ol class="plain">
+      <li id="r1">Weng, L., Liang, Z., &amp; Bao, J. (2020). The effect of tour interpretation on perceived heritage values: A comparison of tourists with and without tour guiding interpretation at a heritage destination. <i>Journal of Destination Marketing &amp; Management</i>, 16, 100431. <a href="https://doi.org/10.1016/j.jdmm.2020.100431" target="_blank" rel="noopener">doi.org</a></li>
+      <li id="r2">Zhao, W., &amp; Chan, C. S. (2023). What interpretation service are cultural tourists willing to pay for? A choice-experiment approach for cultural heritage sites in China. <i>Tourism Management Perspectives</i>, 46, 101091. <a href="https://doi.org/10.1016/j.tmp.2023.101091" target="_blank" rel="noopener">doi.org</a></li>
+      <li id="r3">Lin, Y. C. (2017). The willingness of heritage tourists to pay for perceived authenticity in Pingxi, Taiwan. <i>Current Issues in Tourism</i>, 20(10), 1044–1069. <a href="https://doi.org/10.1080/13683500.2015.1123677" target="_blank" rel="noopener">doi.org</a></li>
+      <li id="r4">Shampanier, K., Mazar, N., &amp; Ariely, D. (2007). Zero as a special price: The true value of free products. <i>Marketing Science</i>, 26(6), 742–757. <a href="https://doi.org/10.1287/mksc.1060.0254" target="_blank" rel="noopener">doi.org</a></li>
+      <li id="r5">Benur, A. M., &amp; Bramwell, B. (2015). Tourism product development and product diversification in destinations. <i>Tourism Management</i>, 50, 213–224. <a href="https://doi.org/10.1016/j.tourman.2015.02.005" target="_blank" rel="noopener">doi.org</a></li>
+      <li id="r6">Sibrijns, G. R., &amp; Vanneste, D. (2021). Managing overtourism in collaboration: The case of ‘From Capital City to Court City’, a tourism redistribution policy project between Amsterdam and The Hague. <i>Journal of Destination Marketing &amp; Management</i>, 20, 100569. <a href="https://doi.org/10.1016/j.jdmm.2021.100569" target="_blank" rel="noopener">doi.org</a></li>
+      <li id="r7">Onderzoek, Informatie en Statistiek (OIS), City of Amsterdam (2026). <i>Toeristische draagkracht van wijken in Amsterdam in 2025</i>. <a href="https://onderzoek.amsterdam.nl/publicatie/toeristische-draagkracht-van-wijken-in-amsterdam-in-2025" target="_blank" rel="noopener">onderzoek.amsterdam.nl</a></li>
+      <li id="r8">Hao, M., Ren, K., Yan, H., Nakamura, T., &amp; Guo, M. (2025). Beyond the hotspots: A framework for identifying and evaluating alternative attractions to counter overtourism. <i>Sustainability</i>, 17(22), 10243. <a href="https://doi.org/10.3390/su172210243" target="_blank" rel="noopener">doi.org</a></li>
+      <li id="r9">Cheng, J., Xu, Y., Jian, I. Y., Ren, M., &amp; Park, S. (2025). Spatial concentration of intra-urban tourist activities and inter-group differences between Asian, European and North American travelers in Korean cities. <i>Tourism Management</i>, 107, 105064. <a href="https://doi.org/10.1016/j.tourman.2024.105064" target="_blank" rel="noopener">doi.org</a></li>
+      <li id="r10">Hosany, S., Sthapit, E., &amp; Björk, P. (2022). Memorable tourism experience: A review and research agenda. <i>Psychology &amp; Marketing</i>, 39(8), 1467–1486. <a href="https://e-space.mmu.ac.uk/629522" target="_blank" rel="noopener">e-space.mmu.ac.uk</a></li>
+      <li id="r11">Tiwari, A. V., Bajpai, N., &amp; Pandey, P. (2024). The measurement model of novelty, memorable tourism experience and revisit intention in tourists. <i>Leisure/Loisir</i>, 48(1), 103–121. <a href="https://doi.org/10.1080/14927713.2023.2187864" target="_blank" rel="noopener">doi.org</a></li>
+      <li id="r12">Japan National Tourism Organization (JNTO). <i>JNTO business overview</i>, English edition (JNTO2026), p. 7. <a href="https://www.jnto.go.jp/projects/business-overview/en/pageindices/index7.html#page=7" target="_blank" rel="noopener">jnto.go.jp</a> And JNTO newsletter, November 2023, on gastronomy tourism. <a href="https://www.jnto.go.jp/en/news/newsletter_2023_11_2.pdf" target="_blank" rel="noopener">jnto.go.jp</a></li>
+    </ol>
+    <p class="small">Any image labelled AI-generated is an illustration, not documentary evidence. Photographs, once added, will be credited here with the photographer, licence or permission, and source. The joint diagram is schematic and drawn for this page.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>Tainan Pairings is an independent, speculative pilot concept. Draft.</footer>
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stage = document.getElementById('stage');
+  const beats = [...stage.querySelectorAll('.beat')];
+  const next = document.getElementById('next');
+  const prev = document.getElementById('prev');
+  const pips = [...stage.querySelectorAll('.pips i')];
+  const live = document.getElementById('live');
+  const LABELS = ['Come closer', 'Go on', 'Ask the maker', 'Look again', 'Continue'];
+  const IMG = { w: 1672, h: 941 };
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  let i = 0, timer = 0;
+
+  /* Place every scene (the full image box) so it covers its container around a focal point,
+     or, on phones, fits the whole image so the three objects stay visible. */
+  function layout(){
+    stage.querySelectorAll('.scene').forEach(sc => {
+      const box = sc.parentElement, cw = box.clientWidth, ch = box.clientHeight;
+      if (!cw || !ch) return;
+      const fx = +sc.dataset.fx || .5, fy = +sc.dataset.fy || .5;
+      const ax = sc.dataset.ax ? +sc.dataset.ax : .5, ay = sc.dataset.ay ? +sc.dataset.ay : .5;
+      const zoom = +sc.dataset.zoom || 1;
+      let W, H, L, T;
+      if (sc.dataset.contain === '1' && cw < 760) {
+        W = cw; H = cw * IMG.h / IMG.w; L = 0; T = 72;
+      } else {
+        const s = Math.max(cw / IMG.w, ch / IMG.h) * zoom;
+        W = IMG.w * s; H = IMG.h * s;
+        L = clamp(cw * ax - fx * W, cw - W, 0);
+        T = clamp(ch * ay - fy * H, ch - H, 0);
+      }
+      sc.style.left = L + 'px'; sc.style.top = T + 'px';
+      sc.style.width = W + 'px'; sc.style.height = H + 'px';
+    });
+  }
+
+  /* beat 2 note drawer */
+  const drawer = document.getElementById('drawer');
+  const cards = [...drawer.querySelectorAll('.card')];
+  const marks = [...stage.querySelectorAll('.mk')];
+  function openCard(k){
+    cards.forEach(c => c.hidden = c.dataset.card !== k);
+    drawer.classList.toggle('is-idle', k === 'idle');
+    marks.forEach(m => m.setAttribute('aria-pressed', String(m.dataset.obj === k)));
+  }
+  const closeCard = () => openCard('idle');
+  stage.querySelectorAll('[data-obj]').forEach(b => b.addEventListener('click', () => openCard(b.dataset.obj)));
+  drawer.querySelectorAll('.x').forEach(b => b.addEventListener('click', closeCard));
+  drawer.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => goTo(+b.dataset.go)));
+
+  function goTo(n){
+    if (reduce) beats[n].scrollIntoView({ behavior: 'auto' });
+    else show(n);
+  }
+
+  function show(n){
+    const from = i;
+    n = Math.max(0, Math.min(beats.length - 1, n));
+    if (n === from && beats[n].classList.contains('on')) return;
+    i = n;
+    clearTimeout(timer);
+    beats.forEach(b => b.classList.remove('pushout', 'pushin'));
+
+    const push = !reduce && from === 0 && n === 1;
+    if (push) {
+      beats[0].classList.add('pushout');
+      beats[1].classList.add('pushin');
+    }
+    beats.forEach((b, k) => {
+      const on = k === n;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-hidden', on ? 'false' : 'true');
+    });
+    if (push) {
+      requestAnimationFrame(() => requestAnimationFrame(() => beats[1].classList.remove('pushin')));
+      timer = setTimeout(() => beats[0].classList.remove('pushout'), 1500);
+    }
+    if (n !== 1) closeCard();
+    pips.forEach((p, k) => p.classList.toggle('on', k === n));
+    stage.classList.toggle('is-light', beats[n].dataset.light === '1');
+    next.textContent = LABELS[n];
+    prev.disabled = n === 0;
+    live.textContent = 'Step ' + (n + 1) + ' of ' + beats.length + '. ' + (beats[n].dataset.title || '');
+  }
+
+  if (reduce) {
+    /* reduced motion: all five beats stacked, no transitions, no step controls */
+    stage.classList.add('stacked');
+    beats.forEach(b => { b.classList.add('on'); b.setAttribute('aria-hidden', 'false'); });
+  } else {
+    next.addEventListener('click', () => {
+      if (i === beats.length - 1) document.getElementById('hinge').scrollIntoView({ behavior: 'smooth' });
+      else show(i + 1);
+    });
+    prev.addEventListener('click', () => show(i - 1));
+    stage.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeCard(); return; }
+      if (e.target.closest('details')) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); if (i < beats.length - 1) show(i + 1); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); show(i - 1); }
+    });
+    show(0);
+  }
+  openCard('idle');
+  layout();
+  addEventListener('resize', layout);
+  addEventListener('load', layout);
+
+  /* beat 5: the same scene, read two ways */
+  const last = beats[beats.length - 1];
+  const seg = [...last.querySelectorAll('.seg2 button')];
+  seg.forEach(b => b.addEventListener('click', () => {
+    last.dataset.view = b.dataset.v;
+    seg.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  }));
+
+  /* design decisions: open / close all */
+  const all = () => [...document.querySelectorAll('#decisions details.dd')];
+  const o = document.getElementById('open-all'), c = document.getElementById('close-all');
+  if (o) o.addEventListener('click', () => all().forEach(d => d.open = true));
+  if (c) c.addEventListener('click', () => all().forEach(d => d.open = false));
+})();
+</script>
+</body>
+</html>
