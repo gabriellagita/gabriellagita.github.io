@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contemporary Trading House — Gita Gabriella</title>
+<meta name="description" content="A speculative retail and spatial experience concept: a restrained street front, an abundant interior, and a collection that changes while the room stays.">
+<meta name="theme-color" content="#0d0907">
+
+<style>
+/* ------------------------------------------------------------------
+   PROTOTYPE STYLES
+   Colours and fonts are variables so they can be swapped for the main
+   site's tokens in one place. I could not read the site's CSS, so
+   these are neutral stand-ins, not a match.
+------------------------------------------------------------------- */
+:root{
+  --bar: 48px;
+
+  --ink-dark: #0d0907;          /* experience background */
+  --paper: #f6f1ea;             /* concept section background */
+  --text-light: #f3e9dc;
+  --text-dark: #231a14;
+  --muted-light: rgba(243,233,220,.62);
+  --muted-dark: #6b5d52;
+  --accent: #e0a15a;            /* warm amber, picks up the render lighting */
+  --curtain: #120a06;
+
+  --font-ui: system-ui, -apple-system, "Segoe UI", "Noto Sans TC", sans-serif;
+  --font-display: Georgia, "Times New Roman", "Noto Serif TC", serif;
+
+  /* transition timings (ms are set in JS; keep in sync) */
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink-dark);color:var(--text-light);font-family:var(--font-ui);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ---------- top bar (stays on screen across both phases) ---------- */
+.bar{
+  position:sticky;top:0;z-index:50;height:var(--bar);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(14px,3vw,28px);
+  background:rgba(13,9,7,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(243,233,220,.08);
+  font-size:13px;letter-spacing:.02em;
+}
+.bar a{text-decoration:none;color:var(--muted-light);transition:color .2s}
+.bar a:hover{color:var(--text-light)}
+.bar .title{display:none;color:var(--muted-light)}
+@media(min-width:720px){.bar .title{display:block}}
+
+/* ---------- Phase 1: the experience ---------- */
+#experience{
+  position:relative;height:calc(100svh - var(--bar));min-height:420px;
+  background:radial-gradient(ellipse at 50% 40%, #1c120c 0%, var(--ink-dark) 70%);
+  overflow:hidden;
+}
+.view{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;
+}
+.view.active{opacity:1;visibility:visible}
+
+/* A frame keeps hotspots locked to the image at any screen size.
+   --ar is each image's width/height. */
+.frame{
+  position:relative;
+  aspect-ratio:var(--ar);
+  width:min(100%, calc((100svh - var(--bar) - 44px) * var(--ar)));
+  box-shadow:0 30px 80px rgba(0,0,0,.55);
+  overflow:hidden;background:#000;
+}
+.frame img{width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none}
+@media(max-width:720px){ .frame{box-shadow:none} }
+
+/* warm vignette to help the image sit in the dark surround */
+.frame::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center, transparent 62%, rgba(10,6,4,.38) 100%)}
+
+/* ----- scene 1: exterior ----- */
+#v-exterior .frame img{transform-origin:55% 50%;transition:transform 1.1s var(--ease)}
+#v-exterior.zooming .frame img{transform:scale(1.35)}
+
+.enter{
+  position:absolute;z-index:2;
+  left:46.5%;top:30.3%;width:17.6%;height:44.9%;
+  display:flex;align-items:flex-end;justify-content:center;padding-bottom:6%;
+  border-radius:2px;
+}
+.enter::before{ /* quiet glow, deliberately faint */
+  content:"";position:absolute;inset:0;border-radius:2px;
+  box-shadow:inset 0 0 0 1px rgba(224,161,90,0), 0 0 0 rgba(224,161,90,0);
+  background:radial-gradient(ellipse at 50% 60%, rgba(255,196,120,.0), rgba(255,196,120,0) 70%);
+  animation:breathe 4.2s ease-in-out 2.2s infinite;
+  transition:background .4s, box-shadow .4s;
+}
+@keyframes breathe{
+  0%,100%{background:radial-gradient(ellipse at 50% 60%, rgba(255,196,120,.0), rgba(255,196,120,0) 70%)}
+  50%{background:radial-gradient(ellipse at 50% 60%, rgba(255,196,120,.20), rgba(255,196,120,0) 72%)}
+}
+.enter:hover::before,.enter:focus-visible::before{
+  animation:none;background:radial-gradient(ellipse at 50% 60%, rgba(255,196,120,.30), rgba(255,196,120,.04) 75%);
+  box-shadow:inset 0 0 0 1px rgba(224,161,90,.45);
+}
+.enter span{
+  position:relative;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,236,210,.9);
+  text-shadow:0 1px 8px rgba(0,0,0,.7);
+  opacity:0;animation:fadein 1.4s ease 3.6s forwards;
+}
+@keyframes fadein{to{opacity:.85}}
+.enter:hover span,.enter:focus-visible span{opacity:1}
+
+.intro{
+  position:absolute;left:clamp(14px,3vw,28px);bottom:clamp(14px,3vh,30px);z-index:3;max-width:min(60%,360px);
+  pointer-events:none;
+}
+.intro h1{margin:0;font:400 clamp(17px,2.2vw,22px)/1.2 var(--font-display);letter-spacing:.01em;color:var(--text-light);text-shadow:0 2px 14px rgba(0,0,0,.8)}
+.intro p{margin:.35em 0 0;font-size:12px;color:var(--muted-light);text-shadow:0 1px 8px rgba(0,0,0,.8)}
+
+/* ----- hotspots (used inside the hall) ----- */
+.hs{
+  position:absolute;left:var(--x);top:var(--y);width:44px;height:44px;margin:-22px 0 0 -22px;z-index:3;
+  display:grid;place-items:center;
+}
+.hs .dot{
+  position:relative;width:13px;height:13px;border-radius:50%;
+  background:rgba(255,236,210,.95);box-shadow:0 0 0 1px rgba(0,0,0,.25), 0 2px 10px rgba(0,0,0,.5);
+  transition:transform .25s var(--ease), background .25s;
+}
+.hs .dot::before{
+  content:"";position:absolute;inset:-9px;border-radius:50%;
+  border:1px solid rgba(255,236,210,.55);
+  animation:ring 3.4s ease-out infinite;
+}
+.hs:nth-of-type(2) .dot::before{animation-delay:-1.1s}
+.hs:nth-of-type(3) .dot::before{animation-delay:-2.2s}
+@keyframes ring{0%{transform:scale(.55);opacity:.9}100%{transform:scale(1.5);opacity:0}}
+.hs:hover .dot,.hs:focus-visible .dot,.hs[aria-expanded="true"] .dot{transform:scale(1.35);background:#fff}
+.hs .lbl{
+  position:absolute;top:50%;left:calc(100% - 2px);transform:translate(-6px,-50%);
+  white-space:nowrap;font-size:12px;letter-spacing:.04em;
+  padding:6px 11px;border-radius:999px;
+  background:rgba(13,9,7,.78);border:1px solid rgba(243,233,220,.16);color:var(--text-light);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;transition:opacity .22s, transform .22s var(--ease);
+}
+.hs[data-side="left"] .lbl{left:auto;right:calc(100% - 2px);transform:translate(6px,-50%)}
+.hs:hover .lbl,.hs:focus-visible .lbl{opacity:1;transform:translate(0,-50%)}
+@media(hover:none){ .hs .lbl{display:none} }
+
+/* ----- caption card (shared by hall display, cabinetry, merchant's room) ----- */
+.card{
+  position:absolute;z-index:6;left:clamp(12px,2.4vw,26px);bottom:clamp(12px,2.4vw,26px);
+  width:min(380px, calc(100% - 24px));
+  padding:18px 20px 20px;border-radius:4px;
+  background:rgba(14,9,6,.86);border:1px solid rgba(243,233,220,.14);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 18px 50px rgba(0,0,0,.45);
+  opacity:0;visibility:hidden;transform:translateY(8px);
+  transition:opacity .35s var(--ease), transform .45s var(--ease), visibility 0s linear .35s;
+}
+.card.open{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.card .kicker{margin:0 0 6px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.card h2{margin:0 0 8px;font:400 22px/1.2 var(--font-display)}
+.card p{margin:0;font-size:14px;line-height:1.55;color:rgba(243,233,220,.82)}
+.card .draft{margin-top:10px;font-size:11px;color:var(--muted-light);font-style:italic}
+.card .x{position:absolute;top:6px;right:6px;width:36px;height:36px;display:grid;place-items:center;color:var(--muted-light);font-size:18px;line-height:1}
+.card .x:hover{color:var(--text-light)}
+@media(max-width:720px){
+  /* bottom sheet on phones: sits under the image, never covers the hotspots */
+  .card{left:0;right:0;bottom:0;width:100%;border-radius:12px 12px 0 0;border-width:1px 0 0}
+}
+
+/* ----- back button inside detail views ----- */
+.back{
+  position:absolute;z-index:7;top:14px;left:clamp(12px,2.4vw,26px);
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 15px 9px 12px;border-radius:999px;font-size:13px;letter-spacing:.02em;
+  background:rgba(14,9,6,.78);border:1px solid rgba(243,233,220,.16);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:background .2s;
+}
+.back:hover{background:rgba(30,20,14,.9)}
+
+/* ----- hall settle-in on arrival ----- */
+#v-hall .frame img{transition:transform 1.8s var(--ease), filter 1.4s var(--ease)}
+#v-hall:not(.active) .frame img{transform:scale(1.05);filter:brightness(.6)}
+
+/* ----- the curtain used between every scene ----- */
+.curtain{
+  position:absolute;inset:0;z-index:20;background:var(--curtain);
+  opacity:0;pointer-events:none;
+  transition:opacity var(--curtain-ms, 450ms) ease;
+}
+.curtain.on{opacity:1;pointer-events:auto}
+
+.credit{
+  position:absolute;right:clamp(12px,2.4vw,26px);bottom:10px;z-index:5;
+  font-size:10.5px;color:rgba(243,233,220,.38);letter-spacing:.03em;pointer-events:none;
+}
+@media(max-width:720px){ .credit{display:none} }
+
+@font-face{font-family:"Newsreader";src:url(fonts/newsreader-latin-opsz-normal.woff2) format("woff2");font-weight:200 800;font-style:normal;font-display:swap}
+@font-face{font-family:"Newsreader";src:url(fonts/newsreader-latin-opsz-italic.woff2) format("woff2");font-weight:200 800;font-style:italic;font-display:swap}
+@font-face{font-family:"Bodoni Moda";src:url(fonts/bodoni-moda-latin-opsz-normal.woff2) format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Bodoni Moda";src:url(fonts/bodoni-moda-latin-opsz-italic.woff2) format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(fonts/hanken-grotesk-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+#concept,.foot{--font-display:"Bodoni Moda","Noto Serif TC",Georgia,serif;--font-read:"Newsreader","Noto Serif TC",Georgia,serif;--font-ui:"Hanken Grotesk","Noto Sans TC",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+#concept button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+#concept :focus-visible,.foot :focus-visible{outline:2px solid var(--brass,#c9953f);outline-offset:3px}
+/* ---------- Phase 2: concept & design rationale ---------- */
+#concept{
+  scroll-margin-top:var(--bar);
+  --timber:#1a0e09; --jade:#0d2523; --oxblood:#3a1311;
+  --celadon:#dbe4d9; --celadon-2:#c8d5c7;
+  --ink:#14201d; --ink-soft:#40504a;
+  --cream:#efe4d0; --cream-soft:rgba(239,228,208,.74);
+  --brass:#c9953f; --brass-ink:#7a4a12;
+  font-family:var(--font-ui);
+}
+.sec2{position:relative;padding:clamp(76px,10vw,148px) clamp(20px,5vw,72px)}
+.sec2.dk{color:var(--cream);--line:rgba(239,228,208,.22);--soft:var(--cream-soft);--acc:var(--brass)}
+.sec2.lt{background:var(--celadon);color:var(--ink);--line:rgba(20,32,29,.26);--soft:var(--ink-soft);--acc:var(--brass-ink)}
+.s1{background:var(--timber)}
+.s3{background:var(--jade)}
+.s5{background:var(--oxblood)}
+.wrap{max-width:1180px;margin:0 auto}
+
+.sec-label{margin:0 0 20px;display:flex;gap:14px;align-items:baseline;font-size:15px;color:var(--soft)}
+.sec-label b{font-weight:600;color:var(--acc);font-variant-numeric:tabular-nums}
+
+.mega{margin:0 0 clamp(36px,5vw,72px);font:400 clamp(44px,9vw,132px)/.96 var(--font-display);letter-spacing:-.025em}
+.mega i{display:block;font-style:italic}
+.h2{margin:0 0 clamp(28px,4vw,52px);max-width:20ch;font:400 clamp(32px,4.8vw,62px)/1.06 var(--font-display);letter-spacing:-.015em}
+.lead{margin:0;font:450 clamp(21px,2.3vw,29px)/1.34 var(--font-read);letter-spacing:-.005em}
+.txt p{margin:0 0 16px;max-width:56ch;font-size:17px;line-height:1.65;color:var(--soft)}
+.txt p:last-child{margin-bottom:0}
+.note-s{font-size:14px !important;line-height:1.6 !important}
+
+/* read-more: native details, no script */
+.more{margin-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
+.more summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;font-size:15px;color:var(--soft)}
+.more summary::-webkit-details-marker{display:none}
+.more summary::after{content:"";width:11px;height:11px;margin-right:4px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-3px);transition:transform .25s ease}
+.more[open] summary::after{transform:rotate(225deg) translateY(-1px)}
+.more summary:hover{color:inherit}
+.more-in{display:grid;gap:26px;padding:6px 0 8px}
+@media(min-width:860px){.more-in{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 64px}}
+.more-in h4{margin:0 0 6px;font:600 14px/1.3 var(--font-ui);color:var(--acc)}
+.more-in p{margin:0;font-size:15.5px;line-height:1.65;color:var(--soft);max-width:60ch}
+
+/* placeholder frames: obvious on purpose, so none ship by accident */
+.ph{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:20px;width:100%;height:100%;
+  border:1.5px dashed var(--line);color:var(--soft);
+  background:repeating-linear-gradient(135deg,transparent 0 13px,rgba(128,128,128,.09) 13px 14px)}
+.ph-tag{position:absolute;top:10px;left:10px;font-size:12px;padding:3px 9px;border:1px solid var(--line);border-radius:999px}
+.ph-t{font:450 clamp(16px,1.8vw,22px)/1.25 var(--font-read)}
+.ph-s{font-size:13px;line-height:1.45;max-width:34ch}
+
+/* 01 */
+.s1-cols{display:grid;gap:28px 72px;margin-bottom:clamp(40px,6vw,80px)}
+@media(min-width:860px){.s1-cols{grid-template-columns:5fr 6fr;align-items:start}}
+.s1 .lead{font-style:italic}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(10px,2vw,28px)}
+@media(max-width:560px){.pair{grid-template-columns:minmax(0,1fr)}}
+.tile{margin:0}
+.crop{aspect-ratio:5/4;background-image:url(images/hall.webp);background-repeat:no-repeat;background-size:212.77% auto;background-position:26.4% 98.6%}
+.tile .ph{height:auto;aspect-ratio:5/4}
+.tile img{display:block;width:100%;height:auto;aspect-ratio:5/4;object-fit:cover;object-position:50% 62%}
+.tile figcaption{margin-top:12px;font:450 19px/1.25 var(--font-read)}
+.pair-cap{margin:22px 0 0;max-width:none;font:italic 450 clamp(19px,2vw,24px)/1.3 var(--font-read);color:var(--soft)}
+
+/* 02: a juxtaposition, not a diagram */
+.juxt{position:relative;display:grid;margin-bottom:clamp(40px,6vw,76px);background-color:var(--celadon-2);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .13 0 0 0 0 .11 0 0 0 .13 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+@media(min-width:860px){.juxt{grid-template-columns:5fr 7fr}}
+.then{position:relative;z-index:1;padding:clamp(24px,3.4vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:32px;min-height:360px}
+.then .cap{margin:0;font-size:15px;color:var(--soft)}
+.places{list-style:none;margin:0;padding:0}
+.places li{display:flex;align-items:baseline;gap:14px;padding:10px 0 12px;border-top:1px solid var(--line);font:400 clamp(36px,5.2vw,72px)/1 var(--font-display);letter-spacing:-.02em}
+.places li span{font:400 15px var(--font-ui);letter-spacing:.04em;color:var(--soft)}
+.places li:nth-child(2){opacity:.8}
+.places li:nth-child(3){opacity:.64}
+.now{position:relative;min-height:340px;overflow:hidden}
+.now img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 38%;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 24%);mask-image:linear-gradient(to bottom,transparent 0,#000 24%)}
+@media(min-width:860px){.now img{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 26%);mask-image:linear-gradient(to right,transparent 0,#000 26%)}}
+.now .cap{position:absolute;left:clamp(18px,2.4vw,32px);bottom:clamp(16px,2.2vw,28px);z-index:2;margin:0;font-size:15px;color:var(--cream);text-shadow:0 1px 10px rgba(0,0,0,.7)}
+.now::after{content:"";position:absolute;inset:auto 0 0 0;height:38%;background:linear-gradient(to top,rgba(10,6,4,.72),transparent);pointer-events:none}
+.s2-copy{display:grid;gap:22px 72px}
+@media(min-width:860px){.s2-copy{grid-template-columns:5fr 6fr}}
+
+/* 03: the one moment that moves */
+.s3-grid{display:grid;gap:clamp(30px,4vw,60px)}
+@media(min-width:980px){.s3-grid{grid-template-columns:4.4fr 7.6fr;align-items:start}}
+.s3-copy .lead{margin-bottom:26px}
+.s3-copy .txt p{margin-bottom:16px}
+.rule{margin:30px 0 0 !important;padding-top:22px;border-top:1px solid var(--line);font:italic 450 clamp(20px,2vw,25px)/1.35 var(--font-read) !important;color:var(--acc) !important}
+.frame3{position:relative;aspect-ratio:1360/1156;background:#000;overflow:hidden}
+.ed{position:absolute;inset:0;margin:0;opacity:0;visibility:hidden;transition:opacity .7s ease,visibility 0s linear .7s}
+.ed.on{opacity:1;visibility:visible;transition-delay:0s}
+.ed img{display:block;width:100%;height:100%;object-fit:cover}
+.lay{position:absolute;inset:0;transition:opacity .6s ease}
+.lay.detail{opacity:0}
+.ed.zoom .wide{opacity:0}
+.ed.zoom .detail{opacity:1}
+#concept .look{position:absolute;right:clamp(12px,1.8vw,20px);bottom:clamp(12px,1.8vw,20px);z-index:3;display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 18px 0 14px;border:1px solid rgba(239,228,208,.55);border-radius:999px;background:rgba(13,37,35,.82);color:var(--cream);font-size:15px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .2s,border-color .2s}
+#concept .look::before{content:"+";font:400 22px/1 var(--font-ui);margin-top:-2px}
+#concept .look:hover{background:rgba(13,37,35,.95);border-color:var(--brass)}
+#concept .look[aria-pressed="true"]::before{content:"−"}
+.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,28px);margin-top:18px}
+#concept .tab{display:flex;flex-direction:column;gap:6px;text-align:left;padding:16px 0 4px;border-top:2px solid var(--line);color:var(--cream-soft);transition:color .2s,border-color .2s}
+#concept .tab:hover{color:var(--cream)}
+#concept .tab[aria-selected="true"]{border-top-color:var(--brass);color:var(--cream)}
+.tn{font:450 clamp(17px,1.7vw,21px)/1.22 var(--font-read)}
+.td{font-size:14px;line-height:1.5}
+.tg{font-size:12.5px;opacity:.65}
+@media(max-width:700px){.tabs{grid-template-columns:1fr;gap:0}#concept .tab{padding:14px 0 12px}}
+.fig-note{margin:14px 0 0;font-size:13.5px;line-height:1.5;color:var(--soft)}
+
+/* 04: degrees of engagement, closer at each step */
+.s4 .lead{max-width:36ch}
+.closer{display:flex;align-items:center;gap:16px;margin:clamp(32px,4vw,52px) 0 18px;font-size:14px;color:var(--soft)}
+.closer i{flex:1;height:1px;background:linear-gradient(to right,var(--line),var(--acc))}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,2.4vw,32px) clamp(12px,2vw,28px)}
+@media(min-width:900px){.steps{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.si{position:relative;aspect-ratio:1369/1149;overflow:hidden;margin-bottom:16px;background:#000}
+.si img{width:100%;height:100%;object-fit:cover;object-position:var(--ox,50%) var(--oy,50%);transform:scale(var(--z,1));transform-origin:var(--ox,50%) var(--oy,50%)}
+.si .ph{background-color:var(--celadon-2)}
+.st-k{margin:0 0 4px;font-size:15px;font-weight:600;color:var(--acc)}
+.step h3{margin:0 0 8px;font:450 clamp(21px,2vw,25px)/1.15 var(--font-read)}
+.step .d{margin:0;font-size:15px;line-height:1.55;color:var(--soft)}
+.aside{margin:clamp(36px,5vw,64px) 0 0;max-width:46ch;font:italic 450 clamp(20px,2.1vw,26px)/1.38 var(--font-read)}
+
+/* 05: material board */
+.s5 .lead{max-width:30ch;margin-bottom:14px;font-style:italic}
+.s5 .sub{margin:0 0 clamp(32px,4vw,56px);max-width:52ch;font-size:17px;line-height:1.6;color:var(--soft)}
+.board{display:grid;gap:clamp(20px,2.4vw,34px) clamp(14px,2vw,28px);grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:clamp(36px,5vw,64px)}
+.m{margin:0;display:flex;flex-direction:column}
+.m1{grid-row:span 2}
+.mi{position:relative;flex:1 1 auto;min-height:clamp(190px,22vw,270px);overflow:hidden;background:#000}
+.mi img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.m figcaption{padding-top:12px;display:grid;gap:4px}
+.m b{font:450 clamp(18px,1.7vw,21px)/1.22 var(--font-read)}
+.m .t{font-size:14.5px;line-height:1.55;color:var(--soft)}
+@media(max-width:900px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}.m1{grid-column:span 2;grid-row:auto}.m1 .mi{min-height:300px}}
+@media(max-width:560px){.board{grid-template-columns:1fr}.m1{grid-column:auto}}
+.close{margin:0;max-width:44ch;font:italic 450 clamp(20px,2.1vw,26px)/1.38 var(--font-read)}
+
+/* footer */
+.foot{padding:44px clamp(20px,5vw,72px) 72px;background:var(--timber);color:var(--cream-soft);font-size:14px;line-height:1.7}
+.foot .wrap{display:grid;gap:14px}
+.foot p{margin:0;max-width:70ch}
+.foot a{color:var(--cream)}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  .enter span{opacity:.85}
+}
+</style>
+</head>
+
+<body>
+
+<header class="bar">
+  <a href="../index.html">← Gita Gabriella</a>
+  <span class="title">Contemporary Trading House · speculative concept</span>
+  <a href="#concept" id="skip">Skip to concept ↓</a>
+</header>
+
+<!-- =================== PHASE 1: EXPERIENCE =================== -->
+<main>
+<section id="experience" aria-label="Interactive spatial experience">
+
+  <!-- Scene 1: exterior -->
+  <div class="view active" id="v-exterior">
+    <div class="frame" style="--ar:1536/1024">
+      <img src="images/exterior.webp" width="1536" height="1024"
+           alt="A narrow city storefront with a dark timber facade, glass block panels glowing amber, and timber doors with a view of shelves and lamps inside.">
+      <button class="enter" data-go="hall" aria-label="Enter the trading house"><span>Enter</span></button>
+    </div>
+    <div class="intro">
+      <h1>Contemporary Trading House</h1>
+      <p>A speculative retail concept</p>
+    </div>
+  </div>
+
+  <!-- Scene 2/3: the main trading hall -->
+  <div class="view" id="v-hall" inert aria-hidden="true">
+    <div class="frame" style="--ar:1536/1024">
+      <img src="images/hall.webp" width="1536" height="1024"
+           alt="The main trading hall: a central cabinet-island with tea tins and confectionery, a hanging floral installation, patterned tile walls, and a wall of timber drawers and shelving on the right.">
+
+      <button class="hs" style="--x:23%;--y:44%" data-go="merchants" aria-label="Adjoining room, the Merchant’s Room">
+        <span class="dot"></span><span class="lbl">Adjoining room</span>
+      </button>
+      <button class="hs" style="--x:37%;--y:66%" data-card="display" aria-expanded="false" aria-controls="card-display" aria-label="The Collection Table, the current collection">
+        <span class="dot"></span><span class="lbl">Collection table</span>
+      </button>
+      <button class="hs" style="--x:91%;--y:50%" data-go="cabinetry" data-side="left" aria-label="Cabinetry, open detail">
+        <span class="dot"></span><span class="lbl">Cabinetry</span>
+      </button>
+    </div>
+
+    <div class="card" id="card-display" role="region" aria-label="Current collection">
+      <button class="x" data-close aria-label="Close">×</button>
+      <p class="kicker" data-copy="display.kicker"></p>
+      <h2 data-copy="display.title"></h2>
+      <p data-copy="display.body"></p>
+    </div>
+  </div>
+
+  <!-- Detail: cabinetry -->
+  <div class="view" id="v-cabinetry" inert aria-hidden="true">
+    <div class="frame" style="--ar:1360/1156">
+      <img src="images/cabinetry.webp" width="1360" height="1156"
+           alt="Close view of a wall of dark timber drawers with brass pulls, some drawer fronts inlaid with patterned tiles, beside open shelving holding ceramic jars and boxed goods.">
+    </div>
+    <button class="back" data-go="hall">← Back to the hall</button>
+    <div class="card open-on-view" id="card-cabinetry" role="region" aria-label="About the cabinetry">
+      <p class="kicker" data-copy="cabinetry.kicker"></p>
+      <h2 data-copy="cabinetry.title"></h2>
+      <p data-copy="cabinetry.body"></p>
+    </div>
+  </div>
+
+  <!-- Detail: the Merchant's Room -->
+  <div class="view" id="v-merchants" inert aria-hidden="true">
+    <div class="frame" style="--ar:1536/1024">
+      <img src="images/merchants-room.webp" width="1536" height="1024"
+           alt="A smaller room seen through open glazed timber doors: a long table set with confectionery and tea goods, cane-backed chairs, a patterned rug and tiled floor, and copper pendant lights.">
+    </div>
+    <button class="back" data-go="hall">← Back to the hall</button>
+    <div class="card open-on-view" id="card-merchants" role="region" aria-label="About the Merchant’s Room">
+      <p class="kicker" data-copy="merchants.kicker"></p>
+      <h2 data-copy="merchants.title"></h2>
+      <p data-copy="merchants.body"></p>
+    </div>
+  </div>
+
+  <div class="curtain" id="curtain" aria-hidden="true"></div>
+  <div class="credit">Conceptual visualisations (AI-generated). Not a built space.</div>
+</section>
+</main>
+
+<!-- =================== PHASE 2: CONCEPT & DESIGN RATIONALE =================== -->
+<div id="concept">
+
+  <!-- 01 -->
+  <section class="sec2 dk s1" aria-labelledby="s1-h">
+    <div class="wrap">
+      <p class="sec-label"><b>01</b> The proposition</p>
+      <h2 class="mega" id="s1-h">A permanent room.<i>A changing collection.</i></h2>
+
+      <div class="s1-cols">
+        <p class="lead">What if changing collections could strengthen a retail space’s identity rather than dilute it?</p>
+        <div class="txt">
+          <p>The Contemporary Trading House is a speculative retail concept. Its architecture gives it continuity, while its collections change. The idea is that each edition builds on the trading house’s identity and reputation over time, instead of replacing it.</p>
+          <p class="note-s">A design and commercial hypothesis, not a guaranteed outcome. The aim is to make commercial space worth experiencing even when a purchase is not immediately intended.</p>
+        </div>
+      </div>
+
+      <div class="pair">
+        <figure class="tile">
+          <img src="images/editions/a-hall.webp" width="1360" height="1156" loading="lazy" alt="The central table set for Tea, Beyond the Cup: tea tins and caddies, a cast-iron kettle with porcelain cups, trays of loose tea, boxed chocolates, a reed diffuser and candles.">
+          <figcaption>Tea, Beyond the Cup</figcaption>
+        </figure>
+        <figure class="tile">
+          <img src="images/editions/c-hall.webp" width="1360" height="1157" loading="lazy" alt="The trading hall with the central table set for The Art of Giving: fragrance bottles, candles, boxed chocolates, stationery and a ceramic lion figure.">
+          <figcaption>The Art of Giving</figcaption>
+        </figure>
+      </div>
+      <p class="pair-cap">Same room. Different edition.</p>
+
+      <details class="more">
+        <summary>Read more</summary>
+        <div class="more-in">
+          <div>
+            <h4>How this differs from existing retail</h4>
+            <p>Department stores and curated multi-brand shops can already have strong identity, discovery and experience. This concept explores a different relationship between space, collection and visitor. The trading house has a permanent architectural identity that doesn’t depend on one product category or participating brand.</p>
+          </div>
+          <div>
+            <h4>What a visit can be</h4>
+            <p>Visitors can browse, handle, test, compare, ask questions or simply enjoy the environment without an immediate intention to purchase. Purchasing remains part of the model, but it isn’t the organising centre of the spatial experience.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="sec2 lt s2" aria-labelledby="s2-h">
+    <div class="wrap">
+      <p class="sec-label"><b>02</b> Commerce as encounter</p>
+      <h2 class="h2" id="s2-h">Inspired by Taiwan’s trading past</h2>
+
+      <div class="juxt">
+        <div class="then">
+          <p class="cap">Historical inspiration</p>
+          <ul class="places">
+            <li>Tainan <span>台南</span></li>
+            <li>Lukang <span>鹿港</span></li>
+            <li>Dadaocheng <span>大稻埕</span></li>
+          </ul>
+        </div>
+        <div class="now">
+          <img src="images/hall.webp" width="1536" height="1024" loading="lazy"
+               alt="The trading hall: a floral installation overhead, a central table of goods and a wall of timber drawers lit from within.">
+          <p class="cap">Contemporary interpretation</p>
+        </div>
+      </div>
+
+      <div class="s2-copy">
+        <p class="lead">Taiwan’s historic trading centres brought together goods, people, and influences from different places.</p>
+        <div class="txt">
+          <p>Drawing inspiration from the mercantile character of Tainan, Lukang, and Dadaocheng, this concept reinterprets commerce as an experience of curiosity, discovery, and exchange—not simply the moment of purchase.</p>
+          <p>It borrows the liveliness and abundance associated with trading environments without attempting to reproduce their historical architecture or commercial practices.</p>
+        </div>
+      </div>
+
+      <details class="more">
+        <summary>Read more</summary>
+        <div class="more-in">
+          <div>
+            <h4>Why not a reconstruction</h4>
+            <p>The interior’s eclecticism, colour, abundance and theatricality are contemporary interpretations of mercantile character, not reproductions of a historical shop. The concept doesn’t reproduce historical trade practices, commodity networks or merchant business models.</p>
+          </div>
+          <div>
+            <h4>The three places</h4>
+            <p>Tainan, Lukang and Dadaocheng are reference points for different expressions of Taiwan’s commercial history. What the concept draws from them is atmosphere and experience: goods and influences converging, the liveliness of a mercantile place, and the chance of meeting something unfamiliar.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="sec2 dk s3" aria-labelledby="s3-h">
+    <div class="wrap">
+      <p class="sec-label"><b>03</b> What changes, what stays</p>
+      <h2 class="h2" id="s3-h">How collections are chosen</h2>
+
+      <div class="s3-grid">
+        <div class="s3-copy">
+          <p class="lead">The room stays the same. Each edition is built around one organising idea, developed under the trading house’s single continuing direction rather than handed to independently run pop-ups.</p>
+          <div class="txt">
+            <p>An idea can start from a place, a commodity or a relationship between goods, or from a mix of these. They are starting points, not categories. The link between the goods and the trading house can be direct or unexpected, but it should make sense, never arbitrary.</p>
+            <p>Visitors don’t need to decode any of it. The idea guides what’s on the table. It isn’t a lesson.</p>
+            <p class="rule">The selection criteria can change. The trading house’s character does not.</p>
+          </div>
+        </div>
+
+        <div class="s3-viz">
+          <div class="frame3">
+            <figure class="ed on" id="ed-0" role="tabpanel" aria-labelledby="tab-0">
+              <div class="lay wide"><img src="images/editions/a-hall.webp" width="1360" height="1156" loading="lazy" alt="The central table set for Tea, Beyond the Cup: tea tins and caddies, a cast-iron kettle with porcelain cups, trays of loose tea, boxed chocolates, a reed diffuser and candles."></div>
+              <div class="lay detail"><img src="images/editions/a-detail.webp" width="1360" height="1156" loading="lazy" alt="Close view of the same table: trays of loose tea, patterned tea tins and caddies, a cast-iron kettle with porcelain cups, a reed diffuser and fragrance bottles, a candle and boxes of chocolates and confectionery."></div>
+            </figure>
+            <figure class="ed" id="ed-1" role="tabpanel" aria-labelledby="tab-1">
+              <div class="lay wide"><img src="images/editions/b-hall.webp" width="1360" height="1156" loading="lazy" alt="The trading hall with the central table set for A Merchant’s Selection: Tainan: tea tins and jars, a cast-iron kettle with cups, a tray of confectionery and boxed gifts."></div>
+              <div class="lay detail"><img src="images/editions/b-detail.webp" width="1360" height="1156" loading="lazy" alt="Close view of the same table: lidded jars of loose tea, a tray of small confectionery, patterned tins and boxes, and a cast-iron kettle."></div>
+            </figure>
+            <figure class="ed" id="ed-2" role="tabpanel" aria-labelledby="tab-2">
+              <div class="lay wide"><img src="images/editions/c-hall.webp" width="1360" height="1157" loading="lazy" alt="The trading hall with the central table set for The Art of Giving: fragrance bottles, candles, boxed chocolates, stationery and a ceramic lion figure."></div>
+              <div class="lay detail"><img src="images/editions/c-detail.webp" width="1360" height="1157" loading="lazy" alt="Close view of the same table: fragrance bottles and candles, a ceramic lion figure, a tray of boxed chocolates, pens and patterned stationery."></div>
+            </figure>
+            <button type="button" class="look" id="look" aria-pressed="false"><span class="look-t">Look closer</span></button>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Illustrative editions">
+            <button class="tab" role="tab" id="tab-0" aria-selected="true" aria-controls="ed-0"><span class="tn">Tea, Beyond the Cup</span><span class="td">Tea alongside confectionery, fragrance and related objects.</span><span class="tg">Commodity-led</span></button>
+            <button class="tab" role="tab" id="tab-1" aria-selected="false" tabindex="-1" aria-controls="ed-1"><span class="tn">A Merchant’s Selection: Tainan</span><span class="td">Selected goods and makers associated with Tainan.</span><span class="tg">Place-led</span></button>
+            <button class="tab" role="tab" id="tab-2" aria-selected="false" tabindex="-1" aria-controls="ed-2"><span class="tn">The Art of Giving</span><span class="td">Different goods connected through gifting practices.</span><span class="tg">Relationship-led</span></button>
+          </div>
+          <p class="fig-note" id="fig-note" aria-live="polite" data-n0="Illustrative edition. The images show an intended mix of goods and how the room adapts, not a finalised supplier selection." data-n1="Illustrative edition. The goods shown are an intended mix, not a supplier selection, and no product is claimed to have a documented connection to Tainan." data-n2="Illustrative edition. The images show an intended mix of goods and how the room adapts, not a finalised supplier selection.">Illustrative edition. The images show an intended mix of goods and how the room adapts, not a finalised supplier selection.</p>
+        </div>
+      </div>
+
+      <details class="more">
+        <summary>Read more</summary>
+        <div class="more-in">
+          <div>
+            <h4>Why an organising idea</h4>
+            <p>Without a coherent organising idea, changing collections could turn into a reason to sell anything. Each edition needs an idea that also makes sense within the trading house’s broader identity.</p>
+          </div>
+          <div>
+            <h4>Operating assumption</h4>
+            <p>For this speculative concept, a single permanent operator controls the trading house’s identity, spatial environment, curation and commercial operations. The operator may own or lease the premises; who owns the property isn’t important to the proposition. Different makers, brands and producers can take part in successive collections, but they don’t take over the space independently as rotating tenants.</p>
+          </div>
+          <div>
+            <h4>About the images</h4>
+            <p>The three editions are working examples, and the images are AI-generated visualisations. They show the kind of merchandise mix each idea could produce and how the same room can hold different collections. They aren’t verified assortments from real makers, and they don’t claim that any product has a documented connection to a place.</p>
+          </div>
+          <div>
+            <h4>Design hypotheses</h4>
+            <p>That successive editions strengthen rather than dilute the trading house’s identity and reputation over time; that they introduce different makers; and that they give visitors reasons to return. These are hypotheses, not validated outcomes.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="sec2 lt s4" aria-labelledby="s4-h">
+    <div class="wrap">
+      <p class="sec-label"><b>04</b> Architecture of encounter</p>
+      <h2 class="h2" id="s4-h">From curiosity to closer examination</h2>
+      <p class="lead">The space is organised around degrees of engagement. Visitors can go as far in as they like, in any order.</p>
+
+      <div class="closer" aria-hidden="true"><span>From a distance</span><i></i><span>Up close</span></div>
+
+      <ul class="steps">
+        <li class="step">
+          <div class="si" style="--z:1;--ox:56%;--oy:50%"><img src="images/exterior.webp" width="1536" height="1024" loading="lazy" alt="The storefront seen from the street, with glowing glass block and timber doors."></div>
+          <p class="st-k">Curiosity</p>
+          <h3>The street</h3>
+          <p class="d">The storefront offers glimpses without announcing everything.</p>
+        </li>
+        <li class="step">
+          <div class="si" style="--z:1.1;--ox:42%;--oy:60%"><img src="images/hall.webp" width="1536" height="1024" loading="lazy" alt="The trading hall with its central table and cabinetry."></div>
+          <p class="st-k">Discovery</p>
+          <h3>The trading hall</h3>
+          <p class="d">A theatrical interior, with a central collection and smaller displays spread through the cabinetry.</p>
+        </li>
+        <li class="step">
+          <div class="si" style="--z:1.6;--ox:58%;--oy:64%"><img src="images/merchants-room.webp" width="1536" height="1024" loading="lazy" alt="Close view of the long table in the Merchant’s Room, set with goods."></div>
+          <p class="st-k">Examination</p>
+          <h3>The Merchant’s Room</h3>
+          <p class="d">Goods can be handled, tested, compared and discussed.</p>
+        </li>
+        <li class="step">
+          <div class="si"><img src="images/service.webp" width="1369" height="1149" loading="lazy" alt="The service alcove seen through partly open folding doors with embossed glass panels: a counter with a payment terminal, wrapping paper and gift boxes, with out-of-focus goods from the trading hall in the foreground."></div>
+          <p class="st-k">Service</p>
+          <h3>The service area</h3>
+          <p class="d">Purchasing, wrapping and other services stay discreet, away from the main hall.</p>
+        </li>
+      </ul>
+
+      <p class="aside">That is why the central table isn’t meant to hold everyone: different activities need different kinds of space. Purchasing is part of the model, but it isn’t where the space leads.</p>
+
+      <details class="more">
+        <summary>Read more</summary>
+        <div class="more-in">
+          <div>
+            <h4>How the rooms support the idea</h4>
+            <p>Glimpses from the street give people a reason to come in without asking them to commit. The hall spreads attention across a central collection and the cabinetry. The Merchant’s Room supports the more involved encounters that some visitors want. Keeping service discreet means transactions never dominate the main hall. In the visualisation it sits in a compact alcove behind partly open folding doors, so it is easy to find without being on show.</p>
+          </div>
+          <div>
+            <h4>Degrees, not a route</h4>
+            <p>These are different levels of possible engagement, not a mandatory circulation sequence. The concept has no fixed building dimensions, so it uses framing, not a floor plan.</p>
+          </div>
+          <div>
+            <h4>This page and the space</h4>
+            <p>The interactive room above is a short presentation of renderings, not a model of the store. In a built version, visitors would meet these degrees of engagement through movement and use, not clicks.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="sec2 dk s5" aria-labelledby="s5-h">
+    <div class="wrap">
+      <p class="sec-label"><b>05</b> The visual language</p>
+      <h2 class="h2" id="s5-h">Materials without reenactment</h2>
+      <p class="lead">How can a contemporary trading house acknowledge local material references without looking like a reconstructed historical shop?</p>
+      <p class="sub">By borrowing selectively and letting the rest be deliberately eclectic.</p>
+
+      <div class="board">
+        <figure class="m m1">
+          <div class="mi"><img src="images/board/cabinetry.webp" width="660" height="840" loading="lazy" alt="A wall of dark timber drawers with brass pulls beside open shelving."></div>
+          <figcaption><b>TCM-inspired cabinetry</b><span class="t">Drawers and open compartments let goods be shown in small groups or kept out of sight.</span></figcaption>
+        </figure>
+        <figure class="m">
+          <div class="mi"><img src="images/board/tile.webp" width="430" height="400" loading="lazy" alt="Patterned tiles set into drawer fronts."></div>
+          <figcaption><b>Decorative tile inserts, Chiayi-inspired</b><span class="t">Small moments of colour and detail in otherwise functional cabinetry.</span></figcaption>
+        </figure>
+        <figure class="m">
+          <div class="mi"><img src="images/board/glass.webp" width="335" height="505" loading="lazy" alt="Glass block with a pressed floral relief, lit from behind."></div>
+          <figcaption><b>Embossed glass, encountered in Tainan</b><span class="t">Partial visibility between spaces, so light and movement are seen without revealing everything.</span></figcaption>
+        </figure>
+        <figure class="m">
+          <div class="mi"><img src="images/board/timber.webp" width="620" height="410" loading="lazy" alt="Dark timber doors with a lattice panel, lit from inside."></div>
+          <figcaption><b>Dark timber</b><span class="t">A stable architectural backdrop for changing collections.</span></figcaption>
+        </figure>
+        <figure class="m">
+          <div class="mi"><img src="images/board/brass.webp" width="640" height="430" loading="lazy" alt="Aged brass discs and lamps on a rail against a teal wall."></div>
+          <figcaption><b>Aged brass</b><span class="t">Warmth and theatrical contrast through fixtures and lighting.</span></figcaption>
+        </figure>
+      </div>
+
+      <p class="close">The richness is deliberate. The room doesn’t reproduce one period or tradition. It interprets a culture of commercial encounter in a contemporary design language.</p>
+
+      <details class="more">
+        <summary>Read more</summary>
+        <div class="more-in">
+          <div>
+            <h4>References, not claims of origin</h4>
+            <p>The design draws on selected Taiwanese material references. A material or pattern is attributed to a place only where that has been verified, which is why the labels say “inspired” or “encountered”.</p>
+          </div>
+          <div>
+            <h4>Deliberately eclectic</h4>
+            <p>The wider mix of influences behind the theatrical atmosphere is intentional. The interior isn’t restrained in the name of conventional luxury retail, and it isn’t a reconstruction of any one historical decorative style.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>A speculative, self-initiated concept. It wasn’t commissioned, and no brand name or partners are implied. Images are AI-generated conceptual visualisations, not documentary evidence of a built space.</p>
+    <p><a href="#experience" id="back-to-room">Return to the room</a> &nbsp;/&nbsp; <a href="../index.html">Back to Gita Gabriella’s work</a></p>
+  </div>
+</footer>
+
+<script>
+/* ------------------------------------------------------------------
+   COPY DECK — all words shown in the experience live here.
+   These are draft captions written to prototype the layout; edit freely.
+------------------------------------------------------------------- */
+const COPY = {
+  display: {
+    kicker: "Now showing",
+    title: "The Collection Table",
+    body: "At the heart of the hall, a selection of goods chosen because they belong in this room. What’s here will change from visit to visit. The room around it won’t."
+  },
+  cabinetry: {
+    kicker: "Cabinetry",
+    title: "The Cabinet of Small Discoveries",
+    body: "Drawers, open compartments and patterned tiles, taking their cue from traditional Chinese medicine cabinets and Chiayi’s tile heritage. Some drawers keep their contents out of sight; others are left open to be explored."
+  },
+  merchants: {
+    kicker: "Adjoining room",
+    title: "The Merchant’s Room",
+    body: "Beyond the main hall, a more enclosed room made for lingering. Goods can be handled, tested, compared and discussed, and questions are part of the visit. Visitors leave knowing more than browsing alone would have told them."
+  }
+};
+
+/* ------------------------------------------------------------------ */
+(function(){
+  const $  = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // fill copy
+  $$('[data-copy]').forEach(el=>{
+    const [a,b] = el.dataset.copy.split('.');
+    el.textContent = COPY[a][b];
+  });
+
+  const views = { exterior:$('#v-exterior'), hall:$('#v-hall'), cabinetry:$('#v-cabinetry'), merchants:$('#v-merchants') };
+  const curtain = $('#curtain');
+  const T = reduce ? {out:1, hold:1, zoom:0} : {out:450, hold:120, zoom:900};
+  curtain.style.setProperty('--curtain-ms', T.out+'ms');
+
+  let current = 'exterior', busy = false;
+  const wait = ms => new Promise(r=>setTimeout(r, ms));
+
+  function show(name){
+    Object.entries(views).forEach(([k,v])=>{
+      const on = k===name;
+      v.classList.toggle('active', on);
+      v.inert = !on;
+      v.setAttribute('aria-hidden', on ? 'false' : 'true');
+    });
+    current = name;
+    closeDisplay();
+    // detail views open their caption as they arrive
+    $$('.card.open-on-view').forEach(c=>c.classList.toggle('open', views[name].contains(c)));
+    // move focus somewhere sensible
+    const target = name==='hall' ? $('.hs', views.hall)
+                 : name==='exterior' ? $('.enter')
+                 : $('.back', views[name]);
+    target && target.focus({preventScroll:true});
+  }
+
+  async function go(name){
+    if (busy || name===current) return;
+    busy = true;
+    // entering from the street: lean toward the doors while the light drops
+    if (current==='exterior' && name==='hall' && !reduce){
+      views.exterior.classList.add('zooming');
+      await wait(T.zoom*0.45);
+    }
+    curtain.classList.add('on');
+    await wait(T.out + T.hold);
+    show(name);
+    views.exterior.classList.remove('zooming');
+    await wait(60);
+    curtain.classList.remove('on');
+    await wait(T.out);
+    busy = false;
+  }
+
+  /* hall display card */
+  const displayBtn = $('[data-card="display"]');
+  const displayCard = $('#card-display');
+  function closeDisplay(){
+    displayCard.classList.remove('open');
+    displayBtn.setAttribute('aria-expanded','false');
+  }
+  function toggleDisplay(){
+    const open = !displayCard.classList.contains('open');
+    displayCard.classList.toggle('open', open);
+    displayBtn.setAttribute('aria-expanded', String(open));
+  }
+  displayBtn.addEventListener('click', e=>{ e.stopPropagation(); toggleDisplay(); });
+  displayCard.addEventListener('click', e=>e.stopPropagation());
+  $('[data-close]', displayCard).addEventListener('click', ()=>{ closeDisplay(); displayBtn.focus(); });
+  views.hall.addEventListener('click', e=>{ if(!e.target.closest('.hs')) closeDisplay(); });
+
+  /* all [data-go] buttons */
+  document.addEventListener('click', e=>{
+    const b = e.target.closest('[data-go]');
+    if (b) go(b.dataset.go);
+  });
+
+  /* Escape: close card, or step back toward the hall */
+  document.addEventListener('keydown', e=>{
+    if (e.key !== 'Escape') return;
+    if (displayCard.classList.contains('open')) { closeDisplay(); return; }
+    if (current==='cabinetry' || current==='merchants') go('hall');
+  });
+
+  /* "Return to the room" in the concept section */
+  $('#back-to-room').addEventListener('click', e=>{
+    e.preventDefault();
+    $('#experience').scrollIntoView({behavior: reduce ? 'auto' : 'smooth'});
+  });
+
+  /* warm the cache so scene changes don't wait on the network */
+  window.addEventListener('load', ()=>{
+    ['hall','cabinetry','merchants-room'].forEach(n=>{ const i=new Image(); i.src='images/'+n+'.webp'; });
+  });
+})();
+</script>
+<script>
+/* Phase 2: edition switcher (the only moving part) */
+(function(){
+  const tabs=[...document.querySelectorAll('.tab')], eds=[...document.querySelectorAll('.ed')];
+  if(!tabs.length) return;
+  const look=document.getElementById('look'), note=document.getElementById('fig-note');
+  function setZoom(on){
+    eds.forEach(e=>e.classList.toggle('zoom',on&&e.classList.contains('on')));
+    if(look){look.setAttribute('aria-pressed',on);look.querySelector('.look-t').textContent=on?'Step back':'Look closer';}
+  }
+  if(look) look.addEventListener('click',()=>setZoom(look.getAttribute('aria-pressed')!=='true'));
+  function pick(i,focus){
+    tabs.forEach((t,k)=>{const on=k===i;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;});
+    eds.forEach((e,k)=>{e.classList.toggle('on',k===i);});
+    setZoom(false);
+    if(note) note.textContent=note.dataset['n'+i];
+    if(focus) tabs[i].focus();
+  }
+  tabs.forEach((t,i)=>{
+    t.addEventListener('click',()=>pick(i));
+    t.addEventListener('keydown',e=>{
+      const n=tabs.length;
+      if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();pick((i+1)%n,true)}
+      else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();pick((i-1+n)%n,true)}
+      else if(e.key==='Home'){e.preventDefault();pick(0,true)}
+      else if(e.key==='End'){e.preventDefault();pick(n-1,true)}
+    });
+  });
+})();
+</script>
+</body>
+</html>
